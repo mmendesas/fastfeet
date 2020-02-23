@@ -15,7 +15,7 @@ export default async (req, res, next) => {
   try {
     // check if req header has authenticated valid token
     const decoded = await promisify(jwt.verify)(token, authConfig.secret);
-    req.useId = decoded.id; // set userId for each req
+    req.userId = decoded.id; // set userId for each req
     return next();
   } catch (err) {
     return res.status(401).json({ error: 'token invalid' });

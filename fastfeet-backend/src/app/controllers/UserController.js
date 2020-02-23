@@ -17,7 +17,27 @@ class UserController {
   }
 
   async update(req, res) {
-    return res.json({ ok: true });
+    const { email, oldPassword } = req.body;
+
+    const user = await User.findByPk(req.userId);
+
+    // check if email exists if user is changing current
+    if (email && email !== user.email) {
+      // check if user already exists
+      const userExists = await User.findOne({ where: { email } });
+      if (userExists) {
+        return res.status(401).json({ error: 'user already exists' });
+      }
+    }
+
+    // oldpassword is equal current
+    if (oldPassword && !(await user.checkPassword(oldPassword))) {
+      return res.status(401).json({ error: 'password does not match' });
+    }
+
+    const { id, name } = await user.update(req.body);
+
+    return res.json({ id, name, email });
   }
 }
 
