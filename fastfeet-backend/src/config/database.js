@@ -5,7 +5,7 @@ module.exports = {
   password: 'docker',
   database: 'fastfeet',
   define: {
-    timestampss: true,
+    timestamps: true,
     underscored: true,
     underscoredAll: true,
   },
