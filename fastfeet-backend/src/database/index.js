@@ -18,7 +18,9 @@ class Database {
     this.connection = new Sequelize(databaseConfig);
 
     // call every model with this connection
-    models.map(model => model.init(this.connection));
+    models
+      .map(model => model.init(this.connection))
+      .map(model => model.associate && model.associate(this.connection.models));
   }
 }
 
