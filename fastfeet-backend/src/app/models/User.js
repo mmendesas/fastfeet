@@ -7,6 +7,7 @@ class User extends Model {
       {
         name: Sequelize.STRING,
         email: Sequelize.STRING,
+        deliveryman: Sequelize.BOOLEAN,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
       },
@@ -23,7 +24,7 @@ class User extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.File, { foreignKey: 'avatar_id' });
+    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
   }
 
   checkPassword(password) {
