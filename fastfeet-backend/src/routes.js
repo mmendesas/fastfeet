@@ -9,6 +9,7 @@ import FileController from './app/controllers/FileController';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import OrderController from './app/controllers/OrderController';
 import DeliveryController from './app/controllers/DeliveryController';
+import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -21,6 +22,9 @@ routes.post('/sessions', SessionController.store);
 
 routes.get('/deliveryman/:id/orders', OrderController.indexBy);
 routes.get('/deliveryman/:id/deliveries', DeliveryController.index);
+
+routes.get('/delivery/:id/problems', DeliveryProblemController.indexById);
+routes.post('/delivery/:id/problems', DeliveryProblemController.store);
 
 // private routes
 routes.use(authMiddleware);
@@ -38,5 +42,7 @@ routes.get('/orders', OrderController.index);
 routes.post('/orders', OrderController.store);
 routes.put('/orders', OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
+
+routes.get('/delivery-problems', DeliveryProblemController.index);
 
 export default routes;
