@@ -18,7 +18,13 @@ class OrderController {
       return res.status(400).json({ error: 'order validation fails' });
     }
 
-    const { deliveryman_id } = req.body;
+    const { deliveryman_id, recipient_id } = req.body;
+
+    // check if recipient exists
+    const recipient = await Recipient.findByPk(recipient_id);
+    if (!recipient) {
+      return res.status(401).json({ error: 'recipient not found' });
+    }
 
     // check if deliveryman_id is a deliveryman
     const isDeliveryman = await User.findOne({
@@ -33,6 +39,8 @@ class OrderController {
         .status(401)
         .json({ error: 'you can only create orders for deliveryman' });
     }
+
+    // TODO: sent email
 
     const order = await Order.create(req.body);
 

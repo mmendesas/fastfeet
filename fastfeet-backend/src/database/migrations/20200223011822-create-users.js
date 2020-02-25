@@ -18,7 +18,6 @@ module.exports = {
       },
       password_hash: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       deliveryman: {
         type: Sequelize.BOOLEAN,
