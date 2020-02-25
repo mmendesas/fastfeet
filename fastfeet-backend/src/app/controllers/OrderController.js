@@ -45,8 +45,14 @@ class OrderController {
     // TODO: send email
     await Mail.sendMail({
       to: `${isDeliveryman.name} <${isDeliveryman.email}>`,
-      subject: 'Teste 432',
-      text: 'grosa123',
+      subject: 'Nova encomenda',
+      template: 'neworder',
+      context: {
+        deliveryman: isDeliveryman.name,
+        user: recipient.name,
+        city: `${recipient.city} [${recipient.state}]`,
+        product: req.body.product,
+      },
     });
 
     const order = await Order.create(req.body);
