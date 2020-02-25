@@ -35,6 +35,17 @@ class DeliveryProblemController {
 
     return res.json(problem);
   }
+
+  async delete(req, res) {
+    const { delivery_id } = await DeliveryProblem.findByPk(req.params.id);
+    const delivery = await Order.findByPk(delivery_id);
+
+    // cancel delivery
+    delivery.canceled_at = new Date();
+    delivery.save();
+
+    return res.json(delivery);
+  }
 }
 
 export default new DeliveryProblemController();
