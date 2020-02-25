@@ -5,6 +5,8 @@ import User from '../models/User';
 import File from '../models/File';
 import Recipient from '../models/Recipient';
 
+import Mail from '../../lib/Mail';
+
 class OrderController {
   async store(req, res) {
     // validate data
@@ -40,7 +42,12 @@ class OrderController {
         .json({ error: 'you can only create orders for deliveryman' });
     }
 
-    // TODO: sent email
+    // TODO: send email
+    await Mail.sendMail({
+      to: `${isDeliveryman.name} <${isDeliveryman.email}>`,
+      subject: 'Teste 432',
+      text: 'grosa123',
+    });
 
     const order = await Order.create(req.body);
 
