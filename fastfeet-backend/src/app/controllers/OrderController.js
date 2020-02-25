@@ -5,7 +5,8 @@ import User from '../models/User';
 import File from '../models/File';
 import Recipient from '../models/Recipient';
 
-import Mail from '../../lib/Mail';
+import NewOrderMail from '../jobs/NewOrderMail';
+import Queue from '../../lib/Queue';
 
 class OrderController {
   async store(req, res) {
@@ -43,16 +44,10 @@ class OrderController {
     }
 
     // TODO: send email
-    await Mail.sendMail({
-      to: `${isDeliveryman.name} <${isDeliveryman.email}>`,
-      subject: 'Nova encomenda',
-      template: 'neworder',
-      context: {
-        deliveryman: isDeliveryman.name,
-        user: recipient.name,
-        city: `${recipient.city} [${recipient.state}]`,
-        product: req.body.product,
-      },
+    await Queue.add(NewOrderMail.key, {
+      deliveryman: isDeliveryman,
+      recipient,
+      product: req.body.product,
     });
 
     const order = await Order.create(req.body);
