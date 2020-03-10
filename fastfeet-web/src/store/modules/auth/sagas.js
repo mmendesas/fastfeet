@@ -12,10 +12,13 @@ export function* signIn({ payload }) {
     const response = yield call(api.post, 'sessions', { email, password });
     const { token, user } = response.data;
 
-    if (!user.admin) {
+    if (user.deliveryman) {
       toast.error('Usuário náo é administrador');
       return;
     }
+
+    // set token for all requests
+    api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
     history.push('/orders');
@@ -25,4 +28,16 @@ export function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+export function setToken({ payload }) {
+  if (!payload) return;
+  const { token } = payload.auth;
+  if (token) {
+    // set token for all requests when F5
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export default all([
+  takeLatest('persist/REHYDRATE', setToken),
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn)
+]);
