@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 
 import Form from '../../components/Form';
-import { Container, Title } from './styles';
+import Badge from '../../components/Badge';
+
+import { Container, Title, Row, Column } from './styles';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -21,6 +23,37 @@ export default function Orders() {
     <Container>
       <Title>Gerenciando Encomendas</Title>
       <Form placeholder="Buscar por encomendas" onClick={() => {}} />
+
+      <ul>
+        <Row header>
+          {[
+            'ID',
+            'Destinatario',
+            'Entregador',
+            'Cidade',
+            'Estado',
+            'Status',
+            'Açoes'
+          ].map(item => (
+            <Column key={item} header>
+              {item}
+            </Column>
+          ))}
+        </Row>
+        {orders.map(item => (
+          <Row key={item.id}>
+            <Column>{`#${String(item.id).padStart(2, '0')}`}</Column>
+            <Column>{item.recipient.name}</Column>
+            <Column>JS {item.deliveryman.name}</Column>
+            <Column>Rio do Sul</Column>
+            <Column>Santa Catarina</Column>
+            <Column>
+              <Badge>Cancelado</Badge>
+            </Column>
+            <Column>Santa Catarina</Column>
+          </Row>
+        ))}
+      </ul>
     </Container>
   );
 }
