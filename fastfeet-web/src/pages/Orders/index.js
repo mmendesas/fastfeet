@@ -4,6 +4,7 @@ import api from '../../services/api';
 
 import Form from '../../components/Form';
 import Badge from '../../components/Badge';
+import NameInitials from '../../components/NameInitials';
 
 import { Container, Title, Row, Column } from './styles';
 
@@ -44,7 +45,9 @@ export default function Orders() {
           <Row key={item.id}>
             <Column>{`#${String(item.id).padStart(2, '0')}`}</Column>
             <Column>{item.recipient.name}</Column>
-            <Column>JS {item.deliveryman.name}</Column>
+            <Column>
+              <NameInitials name={item.deliveryman.name} />
+            </Column>
             <Column>Rio do Sul</Column>
             <Column>Santa Catarina</Column>
             <Column>

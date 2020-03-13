@@ -1,19 +1,20 @@
 import React from 'react';
 import { element, string, oneOf } from 'prop-types';
 
+import { red, yellow, blue, green } from '../../styles/colors';
 import { Container, Dot } from './styles';
 
-const colors = {
-  cancelado: '#f00',
-  pendente: '#bf9a04',
-  retirada: '#003fcc',
-  entregue: '#396745'
+const statusColors = {
+  cancelado: red,
+  pendente: yellow,
+  retirada: blue,
+  entregue: green
 };
 
 export default function Badge({ type, children }) {
   return (
-    <Container color={colors[type]}>
-      <Dot color={colors[type]} />
+    <Container color={statusColors[type]}>
+      <Dot color={statusColors[type]} />
       {children}
     </Container>
   );
