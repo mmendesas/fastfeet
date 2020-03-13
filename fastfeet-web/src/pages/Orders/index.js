@@ -48,7 +48,7 @@ export default function Orders() {
             <Column>Rio do Sul</Column>
             <Column>Santa Catarina</Column>
             <Column>
-              <Badge>Cancelado</Badge>
+              <Badge type="retirada">Cancelado</Badge>
             </Column>
             <Column>Santa Catarina</Column>
           </Row>
