@@ -3,11 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
 `;
 
 export const Title = styled.h1`
@@ -22,6 +17,11 @@ export const Column = styled.div`
 
   :first-of-type {
     width: 400px;
+  }
+
+  :last-of-type {
+    width: 100px;
+    text-align: center;
   }
 `;
 

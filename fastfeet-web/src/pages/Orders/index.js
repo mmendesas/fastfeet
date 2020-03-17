@@ -5,6 +5,7 @@ import api from '../../services/api';
 import Form from '../../components/Form';
 import Badge from '../../components/Badge';
 import NameInitials from '../../components/NameInitials';
+import Options from '../../components/Options';
 
 import { Container, Title, Row, Column } from './styles';
 
@@ -53,7 +54,9 @@ export default function Orders() {
             <Column>
               <Badge type="retirada">Cancelado</Badge>
             </Column>
-            <Column>Santa Catarina</Column>
+            <Column>
+              <Options />
+            </Column>
           </Row>
         ))}
       </ul>

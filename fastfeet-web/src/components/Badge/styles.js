@@ -17,6 +17,7 @@ export const Container = styled.div`
 export const Dot = styled.span`
   height: 10px;
   width: 10px;
+  margin-right: 5px;
   border-radius: 50%;
   background-color: ${props => props.color || '#f00'};
 `;
