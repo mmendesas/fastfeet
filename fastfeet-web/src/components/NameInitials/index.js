@@ -6,7 +6,7 @@ import { Container, Initials, Name } from './styles';
 
 const colors = [red, yellow, blue, green];
 
-export default function NameInitials({ name = '' }) {
+export default function NameInitials({ name = '', showName = true }) {
   const [first = '', last = ''] = name.split(' ');
   const initials = first.charAt(0) + last.charAt(0);
 
@@ -16,7 +16,7 @@ export default function NameInitials({ name = '' }) {
   return (
     <Container color={color}>
       <Initials color={color}>{initials}</Initials>
-      <Name>{name}</Name>
+      {showName && <Name>{name}</Name>}
     </Container>
   );
 }

@@ -6,8 +6,10 @@ import Form from '../../components/Form';
 import Badge from '../../components/Badge';
 import NameInitials from '../../components/NameInitials';
 import Options from '../../components/Options';
+import Column from '../../components/Column';
+import Row from '../../components/Row';
 
-import { Container, Title, Row, Column } from './styles';
+import { Container, Title } from './styles';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -55,7 +57,10 @@ export default function Orders() {
               <Badge type="retirada">Cancelado</Badge>
             </Column>
             <Column>
-              <Options />
+              <Options
+                show={['view', 'edit', 'delete']}
+                optionsName={['Visualizar', 'Editar', 'Excluir']}
+              />
             </Column>
           </Row>
         ))}
