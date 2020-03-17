@@ -5,6 +5,7 @@ import Route from './Route';
 import Login from '../pages/Login';
 import Orders from '../pages/Orders';
 import Deliveryman from '../pages/Deliveryman';
+import Recipients from '../pages/Recipients';
 
 export default function Routes() {
   return (
@@ -12,6 +13,7 @@ export default function Routes() {
       <Route path="/" exact component={Login} />
       <Route path="/orders" component={Orders} isPrivate />
       <Route path="/deliveryman" component={Deliveryman} isPrivate />
+      <Route path="/recipients" component={Recipients} isPrivate />
     </Switch>
   );
 }
