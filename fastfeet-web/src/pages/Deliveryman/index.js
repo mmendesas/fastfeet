@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import api from '../../services/api';
+import history from '../../services/history';
 
 import Form from '../../components/Form';
 import NameInitials from '../../components/NameInitials';
@@ -25,7 +26,12 @@ export default function Deliveryman() {
   return (
     <Container>
       <Title>Gerenciando Entregradores</Title>
-      <Form placeholder="Buscar por entregadores" onClick={() => {}} />
+      <Form
+        placeholder="Buscar por entregadores"
+        onClick={() => {
+          history.push('/deliveryman-register');
+        }}
+      />
 
       <ul>
         <Row header>

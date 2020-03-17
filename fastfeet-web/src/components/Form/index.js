@@ -2,7 +2,9 @@ import React from 'react';
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import { string, func } from 'prop-types';
 
-import { Container, Search, Button } from './styles';
+import Button from '../Button';
+
+import { Container, Search } from './styles';
 
 export default function Form({ placeholder = '', onClick }) {
   return (
