@@ -8,6 +8,7 @@ import Deliveryman from '../pages/Deliveryman';
 import Recipients from '../pages/Recipients';
 import Problems from '../pages/Problems';
 import DeliverymanRegister from '../pages/DeliverymanRegister';
+import RecipientsRegister from '../pages/RecipientsRegister';
 
 export default function Routes() {
   return (
@@ -20,6 +21,11 @@ export default function Routes() {
       <Route
         path="/deliveryman-register"
         component={DeliverymanRegister}
+        isPrivate
+      />
+      <Route
+        path="/recipients-register"
+        component={RecipientsRegister}
         isPrivate
       />
     </Switch>

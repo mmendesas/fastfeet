@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import api from '../../services/api';
+import history from '../../services/history';
 
 import Form from '../../components/Form';
 import Options from '../../components/Options';
@@ -24,7 +25,12 @@ export default function Recipients() {
   return (
     <Container>
       <Title>Gerenciando Destinatários</Title>
-      <Form placeholder="Buscar por destinatários" onClick={() => {}} />
+      <Form
+        placeholder="Buscar por destinatários"
+        onClick={() => {
+          history.push('/recipients-register');
+        }}
+      />
 
       <ul>
         <Row header>
