@@ -1,5 +1,5 @@
 import React from 'react';
-import { element, string, oneOf } from 'prop-types';
+import { element, string, oneOfType } from 'prop-types';
 
 import { red, yellow, blue, green } from '../../styles/colors';
 import { Container, Dot } from './styles';
@@ -22,5 +22,5 @@ export default function Badge({ type, children }) {
 
 Badge.propTypes = {
   type: string.isRequired,
-  children: oneOf(element, string).isRequired
+  children: oneOfType([element, string]).isRequired
 };

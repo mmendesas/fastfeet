@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { oneOf, element, string } from 'prop-types';
+import { oneOfType, element, string, any } from 'prop-types';
 
 import { Container } from './styles';
 
@@ -13,7 +13,7 @@ export default function Row({ children, ...props }) {
 }
 
 Row.propTypes = {
-  children: oneOf(element, string).isRequired
+  children: oneOfType([element, string, any]).isRequired
 };
 
 Row.displayName = 'Row';
