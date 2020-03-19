@@ -2,6 +2,23 @@ import * as Yup from 'yup';
 import Recipient from '../models/Recipient';
 
 class RecipientController {
+  async index(req, res) {
+    const recipients = await Recipient.findAll({
+      attributes: [
+        'id',
+        'name',
+        'street',
+        'number',
+        'complement',
+        'state',
+        'city',
+        'zipcode',
+      ],
+    });
+
+    return res.json(recipients);
+  }
+
   async store(req, res) {
     // validate paylooad against schema
     const schema = Yup.object({
@@ -41,6 +58,60 @@ class RecipientController {
       city,
       zipcode,
     });
+  }
+
+  async update(req, res) {
+    // validate paylooad against schema
+    const schema = Yup.object({
+      name: Yup.string().required(),
+      street: Yup.string().required(),
+      number: Yup.string().required(),
+      complement: Yup.string().required(),
+      state: Yup.string().required(),
+      city: Yup.string().required(),
+      zipcode: Yup.string().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'recipient validation fails' });
+    }
+
+    const { name } = req.body;
+    const recipient = await Recipient.findOne({ where: { name } });
+    if (!recipient) {
+      return res.status(401).json({ error: 'recipient not found' });
+    }
+
+    const {
+      id,
+      street,
+      number,
+      complement,
+      state,
+      city,
+      zipcode,
+    } = await recipient.update(req.body);
+
+    return res.json({
+      id,
+      name,
+      street,
+      number,
+      complement,
+      state,
+      city,
+      zipcode,
+    });
+  }
+
+  async delete(req, res) {
+    const recipient = await Recipient.findByPk(req.params.id);
+    if (!recipient) {
+      res.status(400).json({ error: 'Recipient not found' });
+    }
+
+    recipient.destroy();
+    res.json();
   }
 }
 

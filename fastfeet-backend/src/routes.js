@@ -29,7 +29,11 @@ routes.post('/delivery/:id/problems', DeliveryProblemController.store);
 // private routes
 routes.use(authMiddleware);
 routes.put('/users', UserController.update);
+
+routes.get('/recipients', RecipientController.index);
 routes.post('/recipients', RecipientController.store);
+routes.put('/recipients', RecipientController.update);
+routes.delete('/recipients/:id', RecipientController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
