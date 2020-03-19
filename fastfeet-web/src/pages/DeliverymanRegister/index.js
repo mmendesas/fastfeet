@@ -1,6 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { MdCheck, MdChevronLeft } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
+
+import { createDeliverymanRequest } from '../../store/modules/deliveryman/actions';
 
 import AvatarInput from '../../components/AvatarInput';
 import Button from '../../components/Button';
@@ -9,8 +12,10 @@ import history from '../../services/history';
 import { Container, Content, Title } from './styles';
 
 export default function DeliverymanRegister() {
+  const dispatch = useDispatch();
+
   function handleSubmit(data) {
-    console.log('register data', data);
+    dispatch(createDeliverymanRequest(data));
   }
 
   return (
@@ -28,14 +33,14 @@ export default function DeliverymanRegister() {
               <MdChevronLeft color="#FFF" size={22} />
               Voltar
             </Button>
-            <Button onClick={() => {}}>
+            <Button type="submit" form="form">
               <MdCheck color="#FFF" size={22} />
               Salvar
             </Button>
           </div>
         </section>
 
-        <Form onSubmit={handleSubmit}>
+        <Form id="form" onSubmit={handleSubmit}>
           <AvatarInput name="avatar_id" />
 
           <label htmlFor="name">
