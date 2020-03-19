@@ -10,7 +10,7 @@ import Options from '../../components/Options';
 import Row from '../../components/Row';
 import Column from '../../components/Column';
 
-import { Container, Title } from './styles';
+import { Container, Title, Image } from './styles';
 
 export default function Deliveryman() {
   const [deliveryman, setDeliveryman] = useState([]);
@@ -25,7 +25,7 @@ export default function Deliveryman() {
 
   return (
     <Container>
-      <Title>Gerenciando Entregradores</Title>
+      <Title>Gerenciando Entregadores</Title>
       <Form
         placeholder="Buscar por entregadores"
         onClick={() => {
@@ -45,7 +45,11 @@ export default function Deliveryman() {
           <Row key={item.id}>
             <Column>{`#${String(item.id).padStart(2, '0')}`}</Column>
             <Column>
-              <NameInitials name={item.name} showName={false} />
+              {item.avatar_id ? (
+                <Image src={item.avatar.url} />
+              ) : (
+                <NameInitials name={item.name} showName={false} />
+              )}
             </Column>
             <Column>{item.name}</Column>
             <Column>{item.email}</Column>
