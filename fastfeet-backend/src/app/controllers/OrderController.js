@@ -43,16 +43,32 @@ class OrderController {
         .json({ error: 'you can only create orders for deliveryman' });
     }
 
-    // TODO: send email
+    // send email
     await Queue.add(NewOrderMail.key, {
       deliveryman: isDeliveryman,
       recipient,
       product: req.body.product,
     });
 
-    const order = await Order.create(req.body);
+    const {
+      id,
+      product,
+      signature_id,
+      start_date,
+      end_date,
+      canceled_at,
+    } = await Order.create(req.body);
 
-    return res.json(order);
+    return res.json({
+      id,
+      product,
+      recipient_id,
+      deliveryman_id,
+      signature_id,
+      start_date,
+      end_date,
+      canceled_at,
+    });
   }
 
   async index(req, res) {
@@ -105,38 +121,13 @@ class OrderController {
   }
 
   async indexBy(req, res) {
-    // check if deliveryman exists
-    const deliveryman = await User.findOne({
-      where: {
-        id: req.params.id,
-        deliveryman: true,
-      },
-    });
-
-    if (!deliveryman) {
-      return res.status(401).json({ error: 'deliveryman not found' });
-    }
-
-    // get oders by deliveryman
-    const orders = await Order.findAll({
-      where: {
-        deliveryman_id: req.params.id,
-        canceled_at: null,
-        end_date: null,
-      },
-      attributes: [
-        'id',
-        'product',
-        'canceled_at',
-        'start_date',
-        'end_date',
-        'deliveryman_id',
-      ],
+    const order = await Order.findByPk(req.params.id, {
+      attributes: ['id', 'product'],
       include: [
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['name', 'street', 'zipcode'],
+          attributes: ['id', 'name'],
         },
         {
           model: User,
@@ -150,7 +141,12 @@ class OrderController {
         },
       ],
     });
-    return res.json(orders);
+
+    if (!order) {
+      return res.status(400).json({ error: 'order does not exist' });
+    }
+
+    return res.json(order);
   }
 }
 

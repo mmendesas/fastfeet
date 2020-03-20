@@ -1,11 +1,9 @@
-import Sequelize from 'sequelize';
-
 import Order from '../models/Order';
 import User from '../models/User';
-import Recipient from '../models/Recipient';
 import File from '../models/File';
+import Recipient from '../models/Recipient';
 
-class DeliveryController {
+class DeliverymanOrdersController {
   async index(req, res) {
     // check if deliveryman exists
     const deliveryman = await User.findOne({
@@ -19,13 +17,12 @@ class DeliveryController {
       return res.status(401).json({ error: 'deliveryman not found' });
     }
 
-    // get oders by deliveryman
+    // get oders/deliveries by deliveryman
     const orders = await Order.findAll({
       where: {
         deliveryman_id: req.params.id,
-        end_date: {
-          [Sequelize.Op.not]: null,
-        },
+        canceled_at: null,
+        end_date: null,
       },
       attributes: [
         'id',
@@ -57,4 +54,4 @@ class DeliveryController {
   }
 }
 
-export default new DeliveryController();
+export default new DeliverymanOrdersController();
