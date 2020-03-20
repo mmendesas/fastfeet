@@ -17,6 +17,23 @@ class DeliverymanController {
     return res.json(deliveryman);
   }
 
+  async indexBy(req, res) {
+    const deliveryman = await User.findByPk(req.params.id, {
+      attributes: ['id', 'name', 'email', 'avatar_id'],
+      include: {
+        model: File,
+        as: 'avatar',
+        attributes: ['name', 'path', 'url'],
+      },
+    });
+
+    if (!deliveryman) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+
+    return res.json(deliveryman);
+  }
+
   async store(req, res) {
     const { email } = req.body;
 
