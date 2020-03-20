@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { arrayOf, string } from 'prop-types';
+import { arrayOf, string, func } from 'prop-types';
 import { MdCreate, MdDeleteForever, MdRemoveRedEye } from 'react-icons/md';
 
 import { Container, Button, OptionsList, Option } from './styles';
 
-export default function Options({ show, optionsName }) {
+export default function Options({
+  show,
+  optionsName,
+  onClickView,
+  onClickEdit,
+  onClickDel
+}) {
   const [visible, setVisible] = useState(false);
 
   function handleToggleVisible() {
@@ -23,19 +29,19 @@ export default function Options({ show, optionsName }) {
       <Button onClick={handleToggleVisible} />
       <OptionsList visible={visible}>
         {view && (
-          <Option>
+          <Option onClick={onClickView}>
             <MdRemoveRedEye color="#0aa" size={20} />
             <div>{viewName}</div>
           </Option>
         )}
         {edit && (
-          <Option>
+          <Option onClick={onClickEdit}>
             <MdCreate color="#00a" size={20} />
             <div>{editName}</div>
           </Option>
         )}
         {remove && (
-          <Option>
+          <Option onClick={onClickDel}>
             <MdDeleteForever color="#f00" size={20} />
             <div>{removeName}</div>
           </Option>
@@ -45,7 +51,16 @@ export default function Options({ show, optionsName }) {
   );
 }
 
+Options.defaultProps = {
+  onClickView: () => {},
+  onClickEdit: () => {},
+  onClickDel: () => {}
+};
+
 Options.propTypes = {
   show: arrayOf(string).isRequired,
-  optionsName: arrayOf(string).isRequired
+  optionsName: arrayOf(string).isRequired,
+  onClickView: func,
+  onClickEdit: func,
+  onClickDel: func
 };

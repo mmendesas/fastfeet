@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import { shape, string } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { MdCheck, MdChevronLeft } from 'react-icons/md';
 import { Form, Input } from '@rocketseat/unform';
 
-import { createDeliverymanRequest } from '../../store/modules/deliveryman/actions';
+import { createDeliverymanRequest } from '../../../store/modules/deliveryman/actions';
 
-import AvatarInput from '../../components/AvatarInput';
-import Button from '../../components/Button';
-import history from '../../services/history';
+import AvatarInput from '../../../components/AvatarInput';
+import Button from '../../../components/Button';
+
+import history from '../../../services/history';
+import api from '../../../services/api';
 
 import { Container, Content, Title } from './styles';
 
-export default function DeliverymanRegister() {
+export default function DeliverymanRegister({ match }) {
+  const { id } = match.params; // enable edit
+  const formRef = useRef(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function loadData() {
+      if (id) {
+        const response = await api.get(`/deliveryman/${id}`);
+
+        formRef.current.setData(response.data);
+        formRef.current.setFieldValue('avatar', response?.data?.avatar?.url);
+      }
+    }
+    loadData();
+  }, [id]);
 
   function handleSubmit(data) {
     dispatch(createDeliverymanRequest(data));
@@ -40,7 +57,7 @@ export default function DeliverymanRegister() {
           </div>
         </section>
 
-        <Form id="form" onSubmit={handleSubmit}>
+        <Form id="form" ref={formRef} onSubmit={handleSubmit}>
           <AvatarInput name="avatar_id" />
 
           <label htmlFor="name">
@@ -57,3 +74,11 @@ export default function DeliverymanRegister() {
     </Container>
   );
 }
+
+DeliverymanRegister.propTypes = {
+  match: shape({
+    params: shape({
+      id: string
+    }).isRequired
+  }).isRequired
+};

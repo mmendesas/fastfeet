@@ -17,3 +17,16 @@ export function createDeliverymanFailure() {
     type: '@deliveryman/CREATE_FAILURE'
   };
 }
+
+export function deleteDeliverymanRequest(id) {
+  return {
+    type: '@deliveryman/DELETE_REQUEST',
+    payload: { id }
+  };
+}
+
+export function deleteDeliverymanFailure() {
+  return {
+    type: '@deliveryman/DELETE_FAILURE'
+  };
+}

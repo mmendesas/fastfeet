@@ -80,6 +80,17 @@ class OrderController {
   }
 
   async update(req, res) {
+    // validate data
+    const schema = Yup.object({
+      recipient_id: Yup.number().required(),
+      deliveryman_id: Yup.number().required(),
+      product: Yup.string().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'order validation fails' });
+    }
+
     return res.json({ ok: true });
   }
 

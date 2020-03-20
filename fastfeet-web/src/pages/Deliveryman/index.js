@@ -1,8 +1,11 @@
 /* eslint-disable no-sparse-arrays */
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import api from '../../services/api';
 import history from '../../services/history';
+
+import { deleteDeliverymanRequest } from '../../store/modules/deliveryman/actions';
 
 import Form from '../../components/Form';
 import NameInitials from '../../components/NameInitials';
@@ -13,6 +16,7 @@ import Column from '../../components/Column';
 import { Container, Title, Image } from './styles';
 
 export default function Deliveryman() {
+  const dispatch = useDispatch();
   const [deliveryman, setDeliveryman] = useState([]);
 
   useEffect(() => {
@@ -23,13 +27,21 @@ export default function Deliveryman() {
     loadDeliveryman();
   }, []);
 
+  function handleClickEdit(id) {
+    console.log('clicou edit', id);
+  }
+
+  function handleClickDelete(id) {
+    dispatch(deleteDeliverymanRequest(id));
+  }
+
   return (
     <Container>
       <Title>Gerenciando Entregadores</Title>
       <Form
         placeholder="Buscar por entregadores"
         onClick={() => {
-          history.push('/deliveryman-register');
+          history.push('/deliveryman/register');
         }}
       />
 
@@ -55,8 +67,12 @@ export default function Deliveryman() {
             <Column>{item.email}</Column>
             <Column>
               <Options
+                itemId={item.id}
+                path="deliveryman"
                 show={[, 'edit', 'delete']}
                 optionsName={[, 'Editar', 'Excluir']}
+                onClickEdit={() => handleClickEdit(item.id)}
+                onClickDel={() => handleClickDelete(item.id)}
               />
             </Column>
           </Row>

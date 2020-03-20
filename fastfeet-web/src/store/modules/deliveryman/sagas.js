@@ -1,9 +1,14 @@
+/* eslint-disable camelcase */
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import api from '../../../services/api';
 
-import { createDeliverymanSuccess, createDeliverymanFailure } from './actions';
+import {
+  createDeliverymanSuccess,
+  createDeliverymanFailure,
+  deleteDeliverymanFailure
+} from './actions';
 
 export function* createRequest({ payload }) {
   try {
@@ -14,9 +19,23 @@ export function* createRequest({ payload }) {
     toast.success('Entregador cadastrado com sucesso');
     yield put(createDeliverymanSuccess(response.data));
   } catch (err) {
-    toast.success('Erro ao cadastrar entregador');
+    toast.error('Erro ao cadastrar entregador');
     yield put(createDeliverymanFailure());
   }
 }
 
-export default all([takeLatest('@deliveryman/CREATE_REQUEST', createRequest)]);
+export function* deleteRequest({ payload }) {
+  try {
+    const { id } = payload;
+    yield call(api.delete, `deliveryman/${id}`);
+    toast.success('Entregador excluído com sucesso');
+  } catch (err) {
+    toast.error('Erro ao remover entregador');
+    yield put(deleteDeliverymanFailure());
+  }
+}
+
+export default all([
+  takeLatest('@deliveryman/CREATE_REQUEST', createRequest),
+  takeLatest('@deliveryman/DELETE_REQUEST', deleteRequest)
+]);
