@@ -21,6 +21,10 @@ routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.get('/deliveryman/:id/deliveries', DeliverymanOrdersController.index);
+routes.put(
+  '/deliveryman/:id/deliveries/:delivery_id',
+  DeliverymanOrdersController.update
+);
 
 routes.get('/delivery/:id/problems', DeliveryProblemController.indexById);
 routes.post('/delivery/:id/problems', DeliveryProblemController.store);
