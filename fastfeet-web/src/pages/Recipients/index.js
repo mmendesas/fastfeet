@@ -22,6 +22,10 @@ export default function Recipients() {
     loadData();
   }, []);
 
+  function handleClickEdit(id) {
+    history.push(`/recipients/register/${id}`);
+  }
+
   return (
     <Container>
       <Title>Gerenciando Destinatários</Title>
@@ -49,6 +53,7 @@ export default function Recipients() {
               <Options
                 show={[, 'edit', 'delete']}
                 optionsName={[, 'Editar', 'Excluir']}
+                onClickEdit={() => handleClickEdit(item.id)}
               />
             </Column>
           </Row>

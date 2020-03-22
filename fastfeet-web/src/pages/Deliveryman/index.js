@@ -28,7 +28,7 @@ export default function Deliveryman() {
   }, []);
 
   function handleClickEdit(id) {
-    console.log('clicou edit', id);
+    history.push(`/deliveryman/register/${id}`);
   }
 
   function handleClickDelete(id) {
@@ -67,8 +67,6 @@ export default function Deliveryman() {
             <Column>{item.email}</Column>
             <Column>
               <Options
-                itemId={item.id}
-                path="deliveryman"
                 show={[, 'edit', 'delete']}
                 optionsName={[, 'Editar', 'Excluir']}
                 onClickEdit={() => handleClickEdit(item.id)}
