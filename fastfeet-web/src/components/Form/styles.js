@@ -43,6 +43,6 @@ export const Search = styled.div`
   input {
     width: 100%;
     border: 0;
-    padding-left: 8px;
+    padding: 0 8px;
   }
 `;

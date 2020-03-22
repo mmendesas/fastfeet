@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 import api from '../../services/api';
+import history from '../../services/history';
 
 import Form from '../../components/Form';
 import Badge from '../../components/Badge';
@@ -33,9 +35,19 @@ export default function Orders() {
     setOpen(true);
   }
 
-  function handleClickEdit(id) {}
+  function handleClickEdit(id) {
+    history.push(`/orders/register/${id}`);
+  }
 
-  function handleClickDelete(id) {}
+  function handleClickDelete(id) {
+    if (!window.confirm('Você quer mesmo remover esse item?')) {
+      toast.error('Item não removido!');
+      return;
+    }
+
+    // dispatch(deleteOrderRequest(id));
+    loadOrders();
+  }
 
   function handleSearch(data) {
     loadOrders(data);
@@ -47,7 +59,9 @@ export default function Orders() {
       <Form
         placeholder="Buscar por encomendas"
         onSearch={handleSearch}
-        onClick={() => {}}
+        onClick={() => {
+          history.push('/orders/register');
+        }}
       />
 
       {!orders.length && <p>Nenhum item encontrado.</p>}
