@@ -1,11 +1,14 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import User from '../models/User';
 import File from '../models/File';
 
 class DeliverymanController {
   async index(req, res) {
-    const deliveryman = await User.findAll({
+    const { q: query } = req.query;
+
+    const defaultOptions = {
       where: { deliveryman: true },
       attributes: ['id', 'name', 'email', 'avatar_id'],
       include: {
@@ -13,7 +16,21 @@ class DeliverymanController {
         as: 'avatar',
         attributes: ['name', 'path', 'url'],
       },
-    });
+    };
+
+    const optionsWithQuery = {
+      ...defaultOptions,
+      where: {
+        deliveryman: true,
+        name: {
+          [Op.iLike]: `%${query}%`,
+        },
+      },
+    };
+
+    const options = query ? optionsWithQuery : defaultOptions;
+
+    const deliveryman = await User.findAll(options);
     return res.json(deliveryman);
   }
 

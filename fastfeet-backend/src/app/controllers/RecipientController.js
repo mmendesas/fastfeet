@@ -1,9 +1,13 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
+
 import Recipient from '../models/Recipient';
 
 class RecipientController {
   async index(req, res) {
-    const recipients = await Recipient.findAll({
+    const { q: query } = req.query;
+
+    const defaultOptions = {
       attributes: [
         'id',
         'name',
@@ -14,7 +18,20 @@ class RecipientController {
         'city',
         'zipcode',
       ],
-    });
+    };
+
+    const optionsWithQuery = {
+      where: {
+        name: {
+          [Op.iLike]: `%${query}%`,
+        },
+      },
+      ...defaultOptions,
+    };
+
+    const options = query ? optionsWithQuery : defaultOptions;
+
+    const recipients = await Recipient.findAll(options);
 
     return res.json(recipients);
   }
