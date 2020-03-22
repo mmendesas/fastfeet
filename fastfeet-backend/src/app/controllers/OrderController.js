@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Order from '../models/Order';
 import User from '../models/User';
@@ -72,7 +73,9 @@ class OrderController {
   }
 
   async index(req, res) {
-    const orders = await Order.findAll({
+    const { q: product } = req.query;
+
+    const defaultOptions = {
       attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
       include: [
         {
@@ -91,7 +94,21 @@ class OrderController {
           attributes: ['name', 'path', 'url'],
         },
       ],
-    });
+    };
+
+    const optionsWithQuery = {
+      where: {
+        product: {
+          [Op.iLike]: `%${product}%`,
+        },
+      },
+      ...defaultOptions,
+    };
+
+    const options = product ? optionsWithQuery : defaultOptions;
+
+    // make the query in DB
+    const orders = await Order.findAll(options);
     return res.json(orders);
   }
 
