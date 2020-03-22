@@ -77,6 +77,7 @@ class OrderController {
 
     const defaultOptions = {
       attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
+      order: ['id'],
       include: [
         {
           model: Recipient,

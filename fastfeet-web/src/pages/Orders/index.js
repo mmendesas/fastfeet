@@ -18,12 +18,13 @@ export default function Orders() {
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState({});
 
-  useEffect(() => {
-    async function loadOrders() {
-      const response = await api.get('orders');
-      setOrders(response.data);
-    }
+  async function loadOrders(query) {
+    const options = query ? { params: { q: query } } : null;
+    const response = await api.get('orders', options);
+    setOrders(response.data);
+  }
 
+  useEffect(() => {
     loadOrders();
   }, []);
 
@@ -36,10 +37,20 @@ export default function Orders() {
 
   function handleClickDelete(id) {}
 
+  function handleSearch(data) {
+    loadOrders(data);
+  }
+
   return (
     <Container>
       <Title>Gerenciando Encomendas</Title>
-      <Form placeholder="Buscar por encomendas" onClick={() => {}} />
+      <Form
+        placeholder="Buscar por encomendas"
+        onSearch={handleSearch}
+        onClick={() => {}}
+      />
+
+      {!orders.length && <p>Nenhum item encontrado.</p>}
 
       <ul>
         <Row header>

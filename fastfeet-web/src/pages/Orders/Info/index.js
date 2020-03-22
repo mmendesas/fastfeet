@@ -1,15 +1,19 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { shape } from 'prop-types';
+import { parseISO, format } from 'date-fns';
 
 import { Container, Title } from './styles';
 
 // eslint-disable-next-line react/prop-types
-const Datetime = ({ title, date }) => (
-  <p>
-    <strong>{title}:</strong> {date || '-- / -- / --'}
-  </p>
-);
+const Datetime = ({ title, date }) => {
+  const sdate = date ? format(parseISO(date), 'dd/MM/yyyy') : null;
+  return (
+    <p>
+      <strong>{title}:</strong> {sdate || '-- / -- / ----'}
+    </p>
+  );
+};
 
 export default function Info({ data }) {
   const { recipient = {}, signature = {}, start_date, end_date } = data;
