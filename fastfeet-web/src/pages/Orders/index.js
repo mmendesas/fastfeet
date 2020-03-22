@@ -9,12 +9,14 @@ import Options from '../../components/Options';
 import Column from '../../components/Column';
 import Row from '../../components/Row';
 import Modal from '../../components/Modal';
+import Info from './Info';
 
-import { Container, Title, ModalContent, Image } from './styles';
+import { Container, Title } from './styles';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [open, setOpen] = useState(false);
+  const [info, setInfo] = useState({});
 
   useEffect(() => {
     async function loadOrders() {
@@ -26,7 +28,7 @@ export default function Orders() {
   }, []);
 
   function handleClickView(item) {
-    console.log(item);
+    setInfo(item);
     setOpen(true);
   }
 
@@ -62,8 +64,8 @@ export default function Orders() {
             <Column>
               <NameInitials name={item.deliveryman.name} />
             </Column>
-            <Column>Rio do Sul</Column>
-            <Column>Santa Catarina</Column>
+            <Column>{item.recipient.city}</Column>
+            <Column>{item.recipient.state}</Column>
             <Column>
               <Badge type="retirada">Cancelado</Badge>
             </Column>
@@ -81,27 +83,8 @@ export default function Orders() {
           </Row>
         ))}
       </ul>
-      <Modal show onClose={() => setOpen(false)}>
-        <ModalContent>
-          <h3>Informacoes da encomenda</h3>
-          <p>Rua betthove, 1729</p>
-          <p>Diadema - SP</p>
-          <p>06123123</p>
-          <hr />
-          <h3>Datas</h3>
-          <p>
-            <strong>Retirada:</strong> 25/01/2020
-          </p>
-          <p>
-            <strong>Entrega:</strong> 25/01/2020
-          </p>
-          <hr />
-          <h3>Assinatura do Destinatario</h3>
-          <img
-            src="https://pipdigz.co.uk/p3/img/placeholder-square.png"
-            alt="signature"
-          />
-        </ModalContent>
+      <Modal show={open} onClose={() => setOpen(false)}>
+        <Info data={info} />
       </Modal>
     </Container>
   );
