@@ -1,9 +1,11 @@
 import React from 'react';
 import { MdCheck, MdChevronLeft } from 'react-icons/md';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@unform/core';
 
 import Row from '../../components/Row';
 import Button from '../../components/Button';
+import Input from '../../components/Input';
+
 import history from '../../services/history';
 
 import { Container, Content, Title } from './styles';

@@ -13,8 +13,7 @@ export default function Form({ placeholder = '', onClick }) {
         <FaSearch color="#ccc" size={20} />
         <input type="search" placeholder={placeholder} />
       </Search>
-      <Button onClick={onClick}>
-        <FaPlus color="#FFF" size={18} />
+      <Button onClick={onClick} Icon={FaPlus}>
         Cadastrar
       </Button>
     </Container>

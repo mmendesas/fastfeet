@@ -5,19 +5,22 @@ import { func, any } from 'prop-types';
 
 import { Container } from './styles';
 
-export default function Button({ children, onClick, ...props }) {
+export default function Button({ children, onClick, Icon, ...props }) {
   return (
-    <Container onClick={onClick} {...props}>
+    <Container type="button" onClick={onClick} {...props}>
+      {Icon && <Icon color="#fff" size={18} />}
       {children}
     </Container>
   );
 }
 
 Button.defaultProps = {
-  onClick: () => {}
+  onClick: () => {},
+  Icon: null
 };
 
 Button.propTypes = {
   onClick: func,
-  children: any.isRequired
+  children: any.isRequired,
+  Icon: func
 };

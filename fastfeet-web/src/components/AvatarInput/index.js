@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { string } from 'prop-types';
-import { useField } from '@rocketseat/unform';
+import { useField } from '@unform/core';
 
 import { Container } from './styles';
 import api from '../../services/api';

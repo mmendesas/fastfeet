@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
 
-  margin-bottom: 30px;
+  margin: 20px 0;
 `;
 
 export const Button = styled.button`

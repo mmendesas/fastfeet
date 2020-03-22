@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@unform/core';
 import * as Yup from 'yup';
 
-import { signInRequest } from '../../store/modules/auth/actions';
 import logo from '../../assets/fastfeet-logo.svg';
+import { signInRequest } from '../../store/modules/auth/actions';
+import Input from '../../components/Input';
 
 const schema = Yup.object().shape({
   email: Yup.string()

@@ -1,15 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { MdCheck, MdChevronLeft } from 'react-icons/md';
-import { Form, Input } from '@rocketseat/unform';
+import { MdCheck } from 'react-icons/md';
+import { Form } from '@unform/web';
 
 import { createDeliverymanRequest } from '../../../store/modules/deliveryman/actions';
 
 import AvatarInput from '../../../components/AvatarInput';
 import Button from '../../../components/Button';
+import BackButton from '../../../components/BackButton';
+import Input from '../../../components/Input';
 
-import history from '../../../services/history';
 import api from '../../../services/api';
 
 import { Container, Content, Title } from './styles';
@@ -23,9 +24,10 @@ export default function DeliverymanRegister({ match }) {
     async function loadData() {
       if (id) {
         const response = await api.get(`/deliveryman/${id}`);
+        const { name, email, avatar } = response.data;
 
-        formRef.current.setData(response.data);
-        formRef.current.setFieldValue('avatar', response?.data?.avatar?.url);
+        formRef.current.setData({ name, email });
+        formRef.current.setFieldValue('avatar', avatar?.url);
       }
     }
     loadData();
@@ -41,34 +43,27 @@ export default function DeliverymanRegister({ match }) {
         <section>
           <Title>Cadastro de Entregadores</Title>
           <div>
-            <Button
-              onClick={() => {
-                history.push('/deliveryman');
-              }}
-              disabled
-            >
-              <MdChevronLeft color="#FFF" size={22} />
-              Voltar
-            </Button>
-            <Button type="submit" form="form">
-              <MdCheck color="#FFF" size={22} />
+            <BackButton />
+            <Button Icon={MdCheck} type="submit" form="myform">
               Salvar
             </Button>
           </div>
         </section>
 
-        <Form id="form" ref={formRef} onSubmit={handleSubmit}>
+        <Form id="myform" ref={formRef} onSubmit={handleSubmit}>
           <AvatarInput name="avatar_id" />
-
-          <label htmlFor="name">
-            Name:
-            <Input name="name" placeholder="Nome do entregador" />{' '}
-          </label>
-
-          <label htmlFor="email">
-            Email:
-            <Input name="email" placeholder="example@mail.com" />{' '}
-          </label>
+          <Input
+            type="text"
+            name="name"
+            label="Name:"
+            placeholder="Nome do entregador"
+          />
+          <Input
+            type="email"
+            name="email"
+            label="Email:"
+            placeholder="example@mail.com"
+          />
         </Form>
       </Content>
     </Container>
