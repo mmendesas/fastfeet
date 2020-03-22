@@ -8,11 +8,13 @@ import NameInitials from '../../components/NameInitials';
 import Options from '../../components/Options';
 import Column from '../../components/Column';
 import Row from '../../components/Row';
+import Modal from '../../components/Modal';
 
-import { Container, Title } from './styles';
+import { Container, Title, ModalContent, Image } from './styles';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function loadOrders() {
@@ -22,6 +24,15 @@ export default function Orders() {
 
     loadOrders();
   }, []);
+
+  function handleClickView(item) {
+    console.log(item);
+    setOpen(true);
+  }
+
+  function handleClickEdit(id) {}
+
+  function handleClickDelete(id) {}
 
   return (
     <Container>
@@ -57,14 +68,41 @@ export default function Orders() {
               <Badge type="retirada">Cancelado</Badge>
             </Column>
             <Column>
-              <Options
-                show={['view', 'edit', 'delete']}
-                optionsName={['Visualizar', 'Editar', 'Excluir']}
-              />
+              <>
+                <Options
+                  show={['view', 'edit', 'delete']}
+                  optionsName={['Visualizar', 'Editar', 'Excluir']}
+                  onClickView={() => handleClickView(item)}
+                  onClickEdit={() => handleClickEdit(item.id)}
+                  onClickDel={() => handleClickDelete(item.id)}
+                />
+              </>
             </Column>
           </Row>
         ))}
       </ul>
+      <Modal show onClose={() => setOpen(false)}>
+        <ModalContent>
+          <h3>Informacoes da encomenda</h3>
+          <p>Rua betthove, 1729</p>
+          <p>Diadema - SP</p>
+          <p>06123123</p>
+          <hr />
+          <h3>Datas</h3>
+          <p>
+            <strong>Retirada:</strong> 25/01/2020
+          </p>
+          <p>
+            <strong>Entrega:</strong> 25/01/2020
+          </p>
+          <hr />
+          <h3>Assinatura do Destinatario</h3>
+          <img
+            src="https://pipdigz.co.uk/p3/img/placeholder-square.png"
+            alt="signature"
+          />
+        </ModalContent>
+      </Modal>
     </Container>
   );
 }
