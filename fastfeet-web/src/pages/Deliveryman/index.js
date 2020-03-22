@@ -1,6 +1,7 @@
 /* eslint-disable no-sparse-arrays */
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 import history from '../../services/history';
@@ -19,12 +20,13 @@ export default function Deliveryman() {
   const dispatch = useDispatch();
   const [deliveryman, setDeliveryman] = useState([]);
 
+  async function loadData() {
+    const response = await api.get('deliveryman');
+    setDeliveryman(response.data);
+  }
+
   useEffect(() => {
-    async function loadDeliveryman() {
-      const response = await api.get('deliveryman');
-      setDeliveryman(response.data);
-    }
-    loadDeliveryman();
+    loadData();
   }, []);
 
   function handleClickEdit(id) {
@@ -32,7 +34,13 @@ export default function Deliveryman() {
   }
 
   function handleClickDelete(id) {
+    if (!window.confirm('Você quer mesmo remover esse item?')) {
+      toast.error('Item não removido!');
+      return;
+    }
+
     dispatch(deleteDeliverymanRequest(id));
+    loadData();
   }
 
   return (

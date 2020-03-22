@@ -29,19 +29,34 @@ export default function Options({
       <Button onClick={handleToggleVisible} />
       <OptionsList visible={visible}>
         {view && (
-          <Option onClick={onClickView}>
+          <Option
+            onClick={() => {
+              handleToggleVisible();
+              onClickView();
+            }}
+          >
             <MdRemoveRedEye color="#0aa" size={20} />
             <div>{viewName}</div>
           </Option>
         )}
         {edit && (
-          <Option onClick={onClickEdit}>
+          <Option
+            onClick={() => {
+              handleToggleVisible();
+              onClickEdit();
+            }}
+          >
             <MdCreate color="#00a" size={20} />
             <div>{editName}</div>
           </Option>
         )}
         {remove && (
-          <Option onClick={onClickDel}>
+          <Option
+            onClick={() => {
+              handleToggleVisible();
+              onClickDel();
+            }}
+          >
             <MdDeleteForever color="#f00" size={20} />
             <div>{removeName}</div>
           </Option>
