@@ -16,9 +16,10 @@ import api from '../../../services/api';
 import { Container, Content, Title } from './styles';
 
 export default function DeliverymanRegister({ match }) {
-  const { id } = match.params; // enable edit
   const formRef = useRef(null);
   const dispatch = useDispatch();
+  const { id } = match.params; // enable edit
+  const title = id ? 'Edição' : 'Cadastro';
 
   useEffect(() => {
     async function loadData() {
@@ -41,7 +42,7 @@ export default function DeliverymanRegister({ match }) {
     <Container>
       <Content>
         <section>
-          <Title>Cadastro de Entregadores</Title>
+          <Title>{title} de Entregadores</Title>
           <div>
             <BackButton />
             <Button Icon={MdCheck} type="submit" form="myform">

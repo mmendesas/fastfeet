@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { shape, string } from 'prop-types';
 import { MdCheck } from 'react-icons/md';
 
@@ -12,16 +12,18 @@ import api from '../../../services/api';
 import { Container, Content, Title, UnForm as Form } from './styles';
 
 export default function RecipientsRegister({ match }) {
+  const formRef = useRef(null);
   const { id } = match.params; // enable edit
+  const title = id ? 'Edição' : 'Cadastro';
 
   useEffect(() => {
     async function loadData() {
       if (id) {
         const response = await api.get(`/recipients/${id}`);
-        const { name, street, number, complement } = response.data;
+        formRef.current.setData(response.data);
       }
-      loadData();
     }
+    loadData();
   }, [id]);
 
   function handleSubmit(data) {
@@ -32,7 +34,7 @@ export default function RecipientsRegister({ match }) {
     <Container>
       <Content>
         <section>
-          <Title>Cadastro de Destinatário</Title>
+          <Title>{title} de Destinatário</Title>
           <div>
             <BackButton />
             <Button Icon={MdCheck} type="submit" form="myform">
@@ -41,17 +43,21 @@ export default function RecipientsRegister({ match }) {
           </div>
         </section>
 
-        <Form id="myform" onSubmit={handleSubmit}>
+        <Form id="myform" ref={formRef} onSubmit={handleSubmit}>
           <Input name="name" label="Nome" placeholder="Nome do entregador" />
           <Row>
-            <Input name="rua" label="Rua" placeholder="Digite o nome da rua" />
-            <Input name="numero" label="Numero" placeholder="Digite o numero" />
-            <Input name="complemento" label="Complemento" />
+            <Input
+              name="street"
+              label="Rua"
+              placeholder="Digite o nome da rua"
+            />
+            <Input name="number" label="Numero" placeholder="Digite o numero" />
+            <Input name="complement" label="Complemento" />
           </Row>
           <Row>
-            <Input name="cidade" label="Cidade" placeholder="Cidade" />
-            <Input name="estado" label="Estado" placeholder="Estado" />
-            <Input name="CEP" label="CEP" />
+            <Input name="city" label="Cidade" placeholder="Cidade" />
+            <Input name="state" label="Estado" placeholder="Estado" />
+            <Input name="zipcode" label="CEP" />
           </Row>
         </Form>
       </Content>
