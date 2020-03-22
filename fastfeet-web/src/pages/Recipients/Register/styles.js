@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { Form } from '@unform/web';
+
+export const UnForm = styled(Form)``;
 
 export const Container = styled.div`
   display: flex;
@@ -28,7 +31,7 @@ export const Content = styled.div`
     }
   }
 
-  form {
+  #myform {
     background-color: #fff;
     border-radius: 10px;
     padding: 30px;

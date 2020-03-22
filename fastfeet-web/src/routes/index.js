@@ -8,7 +8,7 @@ import Deliveryman from '../pages/Deliveryman';
 import Recipients from '../pages/Recipients';
 import Problems from '../pages/Problems';
 import DeliverymanRegister from '../pages/Deliveryman/Register';
-import RecipientsRegister from '../pages/RecipientsRegister';
+import RecipientsRegister from '../pages/Recipients/Register';
 
 export default function Routes() {
   return (
@@ -30,7 +30,12 @@ export default function Routes() {
       <Route path="/deliveryman" component={Deliveryman} isPrivate />
 
       <Route
-        path="/recipients-register"
+        path="/recipients/register/:id"
+        component={RecipientsRegister}
+        isPrivate
+      />
+      <Route
+        path="/recipients/register"
         component={RecipientsRegister}
         isPrivate
       />

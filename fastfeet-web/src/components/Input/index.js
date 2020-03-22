@@ -5,7 +5,7 @@ import { string } from 'prop-types';
 
 import { Container } from './styles';
 
-export default function Input({ name, label, ...props }) {
+export default function Input({ name, label, type, ...props }) {
   const inputRef = useRef(null);
   const { fieldName, defaultValue = '', registerField } = useField(name);
 
@@ -21,17 +21,24 @@ export default function Input({ name, label, ...props }) {
     <Container>
       <label htmlFor={name}>
         {label && label}
-        <input ref={inputRef} defaultValue={defaultValue} {...props} />
+        <input
+          ref={inputRef}
+          defaultValue={defaultValue}
+          type={type}
+          {...props}
+        />
       </label>
     </Container>
   );
 }
 
 Input.defaultProps = {
-  label: null
+  label: null,
+  type: 'text'
 };
 
 Input.propTypes = {
   label: string,
-  name: string.isRequired
+  name: string.isRequired,
+  type: string
 };

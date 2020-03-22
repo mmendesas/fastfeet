@@ -28,7 +28,7 @@ export default function Recipients() {
       <Form
         placeholder="Buscar por destinatários"
         onClick={() => {
-          history.push('/recipients-register');
+          history.push('/recipients/register');
         }}
       />
 

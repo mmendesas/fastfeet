@@ -52,12 +52,7 @@ export default function DeliverymanRegister({ match }) {
 
         <Form id="myform" ref={formRef} onSubmit={handleSubmit}>
           <AvatarInput name="avatar_id" />
-          <Input
-            type="text"
-            name="name"
-            label="Name:"
-            placeholder="Nome do entregador"
-          />
+          <Input name="name" label="Name:" placeholder="Nome do entregador" />
           <Input
             type="email"
             name="email"
