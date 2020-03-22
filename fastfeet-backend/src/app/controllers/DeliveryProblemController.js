@@ -1,5 +1,11 @@
 import DeliveryProblem from '../models/DeliveryProblem';
+
 import Order from '../models/Order';
+import User from '../models/User';
+import Recipient from '../models/Recipient';
+
+import Queue from '../../lib/Queue';
+import CancelOrderMail from '../jobs/CancelOrderMail';
 
 class DeliveryProblemController {
   async index(req, res) {
@@ -39,6 +45,17 @@ class DeliveryProblemController {
   async delete(req, res) {
     const { delivery_id } = await DeliveryProblem.findByPk(req.params.id);
     const delivery = await Order.findByPk(delivery_id);
+
+    // get info from delivery
+    const deliveryman = await User.findByPk(delivery.deliveryman_id);
+    const recipient = await Recipient.findByPk(delivery.recipient_id);
+
+    // send mail
+    await Queue.add(CancelOrderMail.key, {
+      deliveryman,
+      recipient,
+      product: delivery.product,
+    });
 
     // cancel delivery
     delivery.canceled_at = new Date();
