@@ -81,7 +81,7 @@ class OrderController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['name', 'street', 'zipcode'],
+          attributes: ['name', 'street', 'number', 'city', 'state', 'zipcode'],
         },
         {
           model: User,
