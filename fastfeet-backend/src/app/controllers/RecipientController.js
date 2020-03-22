@@ -36,6 +36,23 @@ class RecipientController {
     return res.json(recipients);
   }
 
+  async indexBy(req, res) {
+    const recipient = await Recipient.findByPk(req.params.id, {
+      attributes: [
+        'id',
+        'name',
+        'street',
+        'number',
+        'complement',
+        'state',
+        'city',
+        'zipcode',
+      ],
+    });
+
+    return res.json(recipient);
+  }
+
   async store(req, res) {
     // validate paylooad against schema
     const schema = Yup.object({
