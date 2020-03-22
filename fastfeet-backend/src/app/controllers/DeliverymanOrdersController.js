@@ -59,7 +59,9 @@ class DeliverymanOrdersController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      start_date: Yup.date().required(),
+      start_date: Yup.date(),
+      end_date: Yup.date(),
+      signature_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -67,23 +69,11 @@ class DeliverymanOrdersController {
     }
 
     const { id, delivery_id } = req.params;
-    const { start_date } = req.body;
-
-    // start_date must between  08:00 and 18:00h.
-    if (
-      isBefore(parseISO(start_date), setHours(startOfToday(), 8 - 3)) ||
-      isAfter(parseISO(start_date), setHours(startOfToday(), 18 - 3))
-    ) {
-      return res
-        .status(400)
-        .json({ error: 'start_date must be between 8am and 18pm' });
-    }
+    const { start_date, end_date, signature_id } = req.body;
 
     // check if deliveryman exists
     const deliveryman = await User.findByPk(id, {
-      where: {
-        deliveryman: true,
-      },
+      where: { deliveryman: true },
     });
 
     if (!deliveryman) {
@@ -96,21 +86,49 @@ class DeliverymanOrdersController {
       return res.status(401).json({ error: 'order not found' });
     }
 
-    // check qty of orders from this deliveryman
-    const { count } = await Order.findAndCountAll({
-      where: {
-        deliveryman_id: id,
-        start_date: { [Op.ne]: null },
-        signature_id: null,
-      },
-    });
-    if (count === 5) {
-      return res
-        .status(400)
-        .json({ error: 'You only be able to get 5 orders by day' });
+    // 1 flow -> start the delivery
+    if (start_date) {
+      // start_date must between  08:00 and 18:00h.
+      if (
+        isBefore(parseISO(start_date), setHours(startOfToday(), 8 - 3)) ||
+        isAfter(parseISO(start_date), setHours(startOfToday(), 18 - 3))
+      ) {
+        return res
+          .status(400)
+          .json({ error: 'start_date must be between 8am and 18pm' });
+      }
+
+      // check qty of orders from this deliveryman
+      const { count } = await Order.findAndCountAll({
+        where: {
+          deliveryman_id: id,
+          start_date: { [Op.ne]: null },
+          signature_id: null,
+        },
+      });
+      if (count === 5) {
+        return res
+          .status(400)
+          .json({ error: 'You only be able to get 5 orders by day' });
+      }
     }
 
-    await order.update({ start_date });
+    // 2 flow -> finish the delivery
+    if (end_date) {
+      // check if signature was send
+      if (!signature_id) {
+        return res
+          .status(401)
+          .json({ error: 'You need to inform the signature_id' });
+      }
+
+      const signature = await File.findByPk(signature_id);
+      if (!signature) {
+        return res.status(401).json({ error: 'signature not found' });
+      }
+    }
+
+    await order.update({ start_date, end_date, signature_id });
     return res.json({});
   }
 }
