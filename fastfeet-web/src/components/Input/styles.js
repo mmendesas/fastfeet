@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  margin-top: 10px;
+
   label {
     font-weight: bold;
   }
@@ -13,6 +15,11 @@ export const Container = styled.div`
     border: 1px solid #ccc;
     padding: 0 15px;
     width: 100%;
-    margin: 10px 0;
+    margin-top: 10px;
   }
+`;
+
+export const ErrorMsg = styled.span`
+  font-size: 12px;
+  color: #f00;
 `;

@@ -30,6 +30,14 @@ export const Content = styled.div`
       text-transform: uppercase;
       font-weight: bold;
       color: #aaa;
+
+      &.active {
+        color: #555;
+      }
+
+      &:hover {
+        color: #0aa;
+      }
     }
   }
 

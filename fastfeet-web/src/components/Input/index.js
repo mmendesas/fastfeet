@@ -3,11 +3,11 @@ import React, { useEffect, useRef } from 'react';
 import { useField } from '@unform/core';
 import { string } from 'prop-types';
 
-import { Container } from './styles';
+import { Container, ErrorMsg } from './styles';
 
 export default function Input({ name, label, type, ...props }) {
   const inputRef = useRef(null);
-  const { fieldName, defaultValue = '', registerField } = useField(name);
+  const { fieldName, defaultValue = '', registerField, error } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -27,6 +27,7 @@ export default function Input({ name, label, type, ...props }) {
           type={type}
           {...props}
         />
+        {error && <ErrorMsg>{error}</ErrorMsg>}
       </label>
     </Container>
   );

@@ -6,7 +6,7 @@ import history from '../../services/history';
 
 export default function BackButton() {
   return (
-    <Button Icon={MdChevronLeft} disabled onClick={() => history.goBack()}>
+    <Button Icon={MdChevronLeft} secondary onClick={() => history.goBack()}>
       Voltar
     </Button>
   );

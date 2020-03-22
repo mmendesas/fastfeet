@@ -1,3 +1,4 @@
+import * as Yup from 'yup';
 import React, { useRef, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -34,8 +35,29 @@ export default function DeliverymanRegister({ match }) {
     loadData();
   }, [id]);
 
-  function handleSubmit(data) {
-    dispatch(createDeliverymanRequest(data));
+  async function handleSubmit(data) {
+    try {
+      formRef.current.setErrors({});
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .email()
+          .required(),
+        name: Yup.string().required()
+      });
+
+      await schema.validate(data, { abortEarly: false });
+
+      dispatch(createDeliverymanRequest(data));
+    } catch (err) {
+      const validationErrors = {};
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+        });
+
+        formRef.current.setErrors(validationErrors);
+      }
+    }
   }
 
   return (

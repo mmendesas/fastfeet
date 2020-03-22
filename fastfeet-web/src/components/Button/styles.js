@@ -6,7 +6,7 @@ export const Container = styled.button`
   justify-content: center;
 
   width: 130px;
-  background: ${props => (props.disabled ? '#ccc' : '#0aa')};
+  background: ${props => (props.secondary ? '#ccc' : '#0aa')};
   font-weight: bold;
   color: #fff;
   border: 0;
@@ -19,6 +19,6 @@ export const Container = styled.button`
   }
 
   &:hover {
-    background: ${props => (props.disabled ? '#aaa' : '#099')};
+    background: ${props => (props.secondary ? '#aaa' : '#099')};
   }
 `;

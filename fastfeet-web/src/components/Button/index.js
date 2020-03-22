@@ -15,7 +15,7 @@ export default function Button({ children, onClick, Icon, ...props }) {
 }
 
 Button.defaultProps = {
-  onClick: () => {},
+  onClick: null,
   Icon: null
 };
 
