@@ -39,13 +39,19 @@ export default function Orders() {
     history.push(`/orders/register/${id}`);
   }
 
-  function handleClickDelete(id) {
+  async function handleClickDelete(id) {
     if (!window.confirm('Você quer mesmo remover esse item?')) {
       toast.error('Item não removido!');
       return;
     }
 
-    // dispatch(deleteOrderRequest(id));
+    try {
+      await api.delete(`orders/${id}`);
+      toast.success('Encomenda excluída com sucesso');
+    } catch (err) {
+      toast.error('Erro ao remover encomenda');
+    }
+
     loadOrders();
   }
 

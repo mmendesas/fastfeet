@@ -22,4 +22,7 @@ export const Container = styled.div`
 export const ErrorMsg = styled.span`
   font-size: 12px;
   color: #f00;
+
+  overflow: hidden;
+  max-width: 30ch;
 `;

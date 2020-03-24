@@ -1,4 +1,6 @@
+import * as Yup from 'yup';
 import React, { useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { shape, string } from 'prop-types';
 import { MdCheck } from 'react-icons/md';
 
@@ -26,8 +28,38 @@ export default function RecipientsRegister({ match }) {
     loadData();
   }, [id]);
 
-  function handleSubmit(data) {
-    console.log('register data', data);
+  async function handleSubmit(data) {
+    try {
+      formRef.current.setErrors({});
+      const schema = Yup.object().shape({
+        name: Yup.string().required(''),
+        street: Yup.string().required(),
+        number: Yup.number().required(),
+        complement: Yup.number().required(),
+        city: Yup.string().required(),
+        state: Yup.string().required(),
+        zipcode: Yup.number().required()
+      });
+
+      await schema.validate(data, { abortEarly: false });
+
+      if (id) {
+        await api.put(`recipients/${id}`, data);
+      } else {
+        await api.post('recipients', data);
+      }
+      const msg = id ? 'editado' : 'criado';
+      toast.success(`Destinatário ${msg} com sucesso!`);
+    } catch (err) {
+      const validationErrors = {};
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+        });
+
+        formRef.current.setErrors(validationErrors);
+      }
+    }
   }
 
   return (
@@ -51,7 +83,12 @@ export default function RecipientsRegister({ match }) {
               label="Rua"
               placeholder="Digite o nome da rua"
             />
-            <Input name="number" label="Numero" placeholder="Digite o numero" />
+            <Input
+              type="number"
+              name="number"
+              label="Numero"
+              placeholder="Digite o numero"
+            />
             <Input name="complement" label="Complemento" />
           </Row>
           <Row>
