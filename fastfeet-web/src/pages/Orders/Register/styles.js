@@ -34,3 +34,7 @@ export const Content = styled.div`
     padding: 30px;
   }
 `;
+
+export const FormContent = styled.div`
+  display: flex;
+`;

@@ -10,10 +10,11 @@ import { createDeliverymanRequest } from '../../../store/modules/deliveryman/act
 import Button from '../../../components/Button';
 import BackButton from '../../../components/BackButton';
 import Input from '../../../components/Input';
+import Select from '../../../components/Select';
 
 import api from '../../../services/api';
 
-import { Container, Content, Title } from './styles';
+import { Container, Content, Title, FormContent } from './styles';
 
 export default function DeliverymanRegister({ match }) {
   const formRef = useRef(null);
@@ -34,18 +35,18 @@ export default function DeliverymanRegister({ match }) {
   }, [id]);
 
   async function handleSubmit(data) {
+    console.log('grooosa', data);
     try {
       formRef.current.setErrors({});
       const schema = Yup.object().shape({
-        email: Yup.string()
-          .email()
-          .required(),
-        name: Yup.string().required()
+        deliveryman: Yup.string().required(),
+        recipient: Yup.string().required(),
+        product: Yup.string().required()
       });
 
       await schema.validate(data, { abortEarly: false });
 
-      dispatch(createDeliverymanRequest(data));
+      // dispatch(createDeliverymanRequest(data));
     } catch (err) {
       const validationErrors = {};
       if (err instanceof Yup.ValidationError) {
@@ -56,6 +57,26 @@ export default function DeliverymanRegister({ match }) {
         formRef.current.setErrors(validationErrors);
       }
     }
+  }
+
+  async function loadRecipients(inputValue, callback) {
+    const response = await api.get('recipients', { params: { q: inputValue } });
+    const data = response.data.map(({ id: value, name: label }) => ({
+      value,
+      label
+    }));
+    callback(data);
+  }
+
+  async function loadDeliveryman(inputValue, callback) {
+    const response = await api.get('deliveryman', {
+      params: { q: inputValue }
+    });
+    const data = response.data.map(({ id: value, name: label }) => ({
+      value,
+      label
+    }));
+    callback(data);
   }
 
   return (
@@ -72,6 +93,20 @@ export default function DeliverymanRegister({ match }) {
         </section>
 
         <Form id="myform" ref={formRef} onSubmit={handleSubmit}>
+          <FormContent>
+            <Select
+              name="deliveryman"
+              label="Destinatários"
+              loadOptions={loadDeliveryman}
+            />
+
+            <Select
+              name="recipient"
+              label="Entregador"
+              loadOptions={loadRecipients}
+            />
+          </FormContent>
+
           <Input name="product" label="Nome do produto:" placeholder="nome" />
         </Form>
       </Content>
