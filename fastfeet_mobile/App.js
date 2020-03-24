@@ -1,22 +1,7 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, StatusBar } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <View style={styles.body}>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Hello world</Text>
-          </View>
-        </View>
-      </SafeAreaView>
-    </>
-  );
-};
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const styles = StyleSheet.create({
   body: {
@@ -36,4 +21,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default function App() {
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView>
+        <View style={styles.body}>
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionTitle}>Hello world</Text>
+          </View>
+        </View>
+      </SafeAreaView>
+    </>
+  );
+}
