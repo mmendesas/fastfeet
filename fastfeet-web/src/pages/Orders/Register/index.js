@@ -1,11 +1,9 @@
 import * as Yup from 'yup';
 import React, { useRef, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { shape, string } from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { MdCheck } from 'react-icons/md';
 import { Form } from '@unform/web';
-
-import { createDeliverymanRequest } from '../../../store/modules/deliveryman/actions';
 
 import Button from '../../../components/Button';
 import BackButton from '../../../components/BackButton';
@@ -18,7 +16,6 @@ import { Container, Content, Title, FormContent } from './styles';
 
 export default function DeliverymanRegister({ match }) {
   const formRef = useRef(null);
-  const dispatch = useDispatch();
   const { id } = match.params; // enable edit
   const title = id ? 'Edição' : 'Cadastro';
 
@@ -35,7 +32,6 @@ export default function DeliverymanRegister({ match }) {
   }, [id]);
 
   async function handleSubmit(data) {
-    console.log('grooosa', data);
     try {
       formRef.current.setErrors({});
       const schema = Yup.object().shape({
@@ -46,7 +42,19 @@ export default function DeliverymanRegister({ match }) {
 
       await schema.validate(data, { abortEarly: false });
 
-      // dispatch(createDeliverymanRequest(data));
+      const dataToSend = {
+        product: data.product,
+        recipient_id: data.recipient.value,
+        deliveryman_id: data.deliveryman.value
+      };
+
+      if (id) {
+        await api.put(`/orders/${id}`, dataToSend);
+      } else {
+        await api.post('orders', dataToSend);
+      }
+      const msg = id ? 'editada' : 'criada';
+      toast.success(`Encomenda ${msg} com sucesso!`);
     } catch (err) {
       const validationErrors = {};
       if (err instanceof Yup.ValidationError) {
