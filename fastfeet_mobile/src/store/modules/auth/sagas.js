@@ -8,13 +8,11 @@ export function* signIn({ payload }) {
   try {
     const { id } = payload;
     const response = yield call(api.get, `/deliveryman/${id}`);
-    const { data } = response;
+    const { name, email, avatar } = response.data;
 
-    if (!data) {
-      Alert.alert('Erro no login', 'Id nao encontrado');
-    }
+    const profile = { name, email, avatar };
+    yield put(signInSuccess(id, profile));
 
-    yield put(signInSuccess(data));
     // history.push('/orders');
   } catch (err) {
     Alert.alert('Falha na autenticação', 'Erro verifique seus dados');

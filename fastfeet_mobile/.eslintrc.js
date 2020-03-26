@@ -21,6 +21,7 @@ module.exports = {
     'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.js'] }],
     'import/prefer-default-export': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'no-param-reassign': 'off',
   },
   settings: {
     'import/resolver': {
