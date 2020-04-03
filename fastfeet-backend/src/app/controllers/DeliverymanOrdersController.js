@@ -35,12 +35,13 @@ class DeliverymanOrdersController {
         'start_date',
         'end_date',
         'deliveryman_id',
+        'status',
       ],
       include: [
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['name', 'street', 'zipcode'],
+          attributes: ['name', 'street', 'city', 'zipcode'],
         },
         {
           model: User,

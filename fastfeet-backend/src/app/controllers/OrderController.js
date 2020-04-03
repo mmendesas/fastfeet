@@ -76,7 +76,14 @@ class OrderController {
     const { q: product } = req.query;
 
     const defaultOptions = {
-      attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
+      attributes: [
+        'id',
+        'product',
+        'canceled_at',
+        'start_date',
+        'end_date',
+        'status',
+      ],
       order: ['id'],
       include: [
         {
