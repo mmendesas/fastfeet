@@ -26,6 +26,18 @@ const authedScreens = () => (
       inactiveTintColor: '#999',
       labelStyle: {
         fontWeight: 'bold',
+        fontSize: 16,
+      },
+      style: {
+        height: 100,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
       },
     }}
   >
@@ -35,7 +47,7 @@ const authedScreens = () => (
       options={{
         title: 'Entregas',
         tabBarIcon: ({ color }) => (
-          <Icon name="dehaze" size={30} color={color} />
+          <Icon name="dehaze" size={40} color={color} />
         ),
       }}
     />
@@ -46,7 +58,7 @@ const authedScreens = () => (
       options={{
         title: 'Meu Perfil',
         tabBarIcon: ({ color }) => (
-          <Icon name="person" size={30} color={color} />
+          <Icon name="person" size={40} color={color} />
         ),
       }}
     />

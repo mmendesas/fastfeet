@@ -25,7 +25,7 @@ export const Header = styled.View`
 
 export const Details = styled.View`
   height: 70px;
-  background-color: #eee;
+  background-color: #f8f9fd;
 
   display: flex;
   flex-direction: row;
