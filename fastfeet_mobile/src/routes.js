@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignIn from './pages/SignIn';
 import Orders from './pages/Orders';
 import Profile from './pages/Profile';
+import Details from './pages/TabOrders/Details';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -14,6 +15,13 @@ const Tab = createBottomTabNavigator();
 const screens = () => (
   <Stack.Navigator headerMode="none">
     <Stack.Screen name="SignIn" component={SignIn} />
+  </Stack.Navigator>
+);
+
+const orderFlowScreens = () => (
+  <Stack.Navigator headerMode="none">
+    <Stack.Screen name="Order" component={Orders} />
+    <Stack.Screen name="Details" component={Details} />
   </Stack.Navigator>
 );
 
@@ -43,13 +51,13 @@ const authedScreens = () => (
   >
     <Tab.Screen
       name="orders"
-      component={Orders}
       options={{
         title: 'Entregas',
         tabBarIcon: ({ color }) => (
           <Icon name="dehaze" size={40} color={color} />
         ),
       }}
+      component={orderFlowScreens}
     />
 
     <Tab.Screen
