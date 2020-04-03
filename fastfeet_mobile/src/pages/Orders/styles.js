@@ -58,7 +58,7 @@ export const List = styled.FlatList.attrs({
 `;
 
 export const EmptyMessage = styled.View`
-  margin-top: 10;
+  margin-top: 10px;
   flex: 1;
   display: flex;
   justify-content: center;

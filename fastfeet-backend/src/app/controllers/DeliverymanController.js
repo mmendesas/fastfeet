@@ -36,7 +36,7 @@ class DeliverymanController {
 
   async indexBy(req, res) {
     const deliveryman = await User.findByPk(req.params.id, {
-      attributes: ['id', 'name', 'email', 'avatar_id'],
+      attributes: ['id', 'name', 'email', 'avatar_id', 'created_at'],
       include: {
         model: File,
         as: 'avatar',

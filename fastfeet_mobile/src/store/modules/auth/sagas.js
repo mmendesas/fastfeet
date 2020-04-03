@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Alert } from 'react-native';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 
@@ -8,9 +9,9 @@ export function* signIn({ payload }) {
   try {
     const { id } = payload;
     const response = yield call(api.get, `/deliveryman/${id}`);
-    const { name, email, avatar } = response.data;
+    const { name, email, avatar, created_at } = response.data;
 
-    const profile = { name, email, avatar };
+    const profile = { name, email, avatar, created_at };
     yield put(signInSuccess(id, profile));
 
     // history.push('/orders');
@@ -20,11 +21,4 @@ export function* signIn({ payload }) {
   }
 }
 
-export function signOut() {
-  // history.push('/');
-}
-
-export default all([
-  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
-  takeLatest('@auth/SIGN_OUT', signOut),
-]);
+export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);

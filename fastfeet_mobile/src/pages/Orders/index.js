@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import api from '~/services/api';
+import { signOut } from '~/store/modules/auth/actions';
 
 import NameInitials from '~/components/NameInitials';
 import TextLink from '~/components/TextLink';
@@ -25,6 +26,7 @@ import {
 } from './styles';
 
 export default function Orders() {
+  const dispatch = useDispatch();
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [filterType, setFilterType] = useState('pendente');
@@ -53,6 +55,10 @@ export default function Orders() {
     loadData();
   }, []);
 
+  function handleLogout() {
+    dispatch(signOut());
+  }
+
   return (
     <Container>
       <Header>
@@ -66,7 +72,7 @@ export default function Orders() {
           <Username>{profile.name}</Username>
         </UserInfo>
 
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={handleLogout}>
           <Icon name="exit-to-app" size={32} color="#f00" />
         </TouchableOpacity>
       </Header>
