@@ -33,7 +33,7 @@ export default function Details({ route }) {
       <Background>
         <Box>
           <Header>
-            <Icon name="local-shipping" size={32} color="#008080" />
+            <Icon name="local-shipping" size={32} color="#0aa" />
             <Title>Informações da entrega</Title>
           </Header>
           <Label>DESTINATÁRIO</Label>
@@ -46,7 +46,7 @@ export default function Details({ route }) {
 
         <Box>
           <Header>
-            <Icon name="event" size={32} color="#008080" />
+            <Icon name="event" size={32} color="#0aa" />
             <Title>Situação da entrega</Title>
           </Header>
           <Label>STATUS</Label>
@@ -73,7 +73,7 @@ export default function Details({ route }) {
             <ButtonText>Visualizar Problemas</ButtonText>
           </Button>
           <Button onPress={() => navigate('ConfirmDelivery', { order_id: id })}>
-            <Icon name="check-circle" size={32} color="#008080" />
+            <Icon name="check-circle" size={32} color="#0aa" />
             <ButtonText>Confirmar Entrega</ButtonText>
           </Button>
         </Options>

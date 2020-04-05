@@ -18,6 +18,6 @@ export const Initials = styled.View`
 `;
 
 export const MText = styled.Text`
-  color: #008080;
+  color: #0aa;
   font-size: ${(props) => (props.big ? '60px' : '24px')};
 `;

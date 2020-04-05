@@ -28,7 +28,7 @@ export const Avatar = styled.Image`
   border-radius: 34px;
   background: #eee;
   border-width: 3px;
-  border-color: #008080;
+  border-color: #0aa;
 `;
 
 export const InfoView = styled.View`

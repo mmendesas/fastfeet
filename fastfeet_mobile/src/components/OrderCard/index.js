@@ -28,7 +28,7 @@ export default function OrderCard({ data }) {
   return (
     <Container>
       <Header>
-        <Icon name="local-shipping" size={32} color="#008080" />
+        <Icon name="local-shipping" size={32} color="#0aa" />
         <Title> Encomenda {addZero(id)}</Title>
       </Header>
       <Timeline status={status} />

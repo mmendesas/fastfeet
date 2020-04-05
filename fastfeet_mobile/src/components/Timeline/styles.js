@@ -8,7 +8,7 @@ export const Container = styled.View`
 
 export const Line = styled.View`
   border-width: 1px;
-  border-color: #008080;
+  border-color: #0aa;
   margin: 0 55px;
   top: 8px;
 `;
@@ -29,13 +29,13 @@ export const Step = styled.View`
 `;
 
 export const Bullet = styled.Text`
-  background-color: ${({ fill }) => (fill ? '#008080' : '#fff')};
+  background-color: ${({ fill }) => (fill ? '#0aa' : '#fff')};
   width: 14px;
   height: 14px;
   border-radius: 7px;
 
   border-width: 2px;
-  border-color: #008080;
+  border-color: #0aa;
 `;
 
 export const Title = styled.Text`

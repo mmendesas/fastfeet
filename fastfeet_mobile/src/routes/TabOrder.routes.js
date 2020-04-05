@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Orders from '~/pages/Orders';
+import Orders from '~/pages/TabOrders/Orders';
 import Details from '~/pages/TabOrders/Details';
 import ReportProblem from '~/pages/TabOrders/ReportProblem';
 import ShowProblem from '~/pages/TabOrders/ShowProblem';
