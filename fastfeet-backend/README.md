@@ -23,6 +23,8 @@ In the project directory `../fastfeet/fastfeet-backend`, you can run:
 - `yarn sequelize db:seed:all`: register an admin user
 - `yarn dev`: Start in development mode
 
+If you can, import the [insomnia file]('/docs/Insomnia_Fastfeet.json') inside insomnia to test all examples
+
 ## Project Structure
 
 ### Entities
