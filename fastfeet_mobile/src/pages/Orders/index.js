@@ -64,14 +64,14 @@ export default function Orders() {
       <StatusBar barStyle="dark-content" />
       <Container>
         <Header>
-          {profile.avatar ? (
+          {profile?.avatar ? (
             <Avatar source={{ uri: profile.avatar.url }} />
           ) : (
-            <NameInitials name={profile.name} />
+            <NameInitials name={profile?.name} />
           )}
           <UserInfo>
             <Text>Bem vindo(a) de volta,</Text>
-            <Username>{profile.name}</Username>
+            <Username>{profile?.name}</Username>
           </UserInfo>
 
           <TouchableOpacity onPress={handleLogout}>

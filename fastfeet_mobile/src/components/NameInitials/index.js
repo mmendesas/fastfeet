@@ -21,9 +21,10 @@ export default function NameInitials({ name = '', big }) {
 
 NameInitials.defaultProps = {
   big: false,
+  name: '',
 };
 
 NameInitials.propTypes = {
-  name: string.isRequired,
+  name: string,
   big: bool,
 };
