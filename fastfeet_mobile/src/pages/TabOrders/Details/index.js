@@ -24,7 +24,7 @@ export default function Details({ route }) {
   const { data } = route.params;
   const { navigate } = useNavigation();
 
-  const { status, product, recipient, start_date, end_date } = data;
+  const { id, status, product, recipient, start_date, end_date } = data;
   const { street, city, number, state, zipcode } = recipient;
 
   return (
@@ -62,15 +62,15 @@ export default function Details({ route }) {
       </Box>
 
       <Options>
-        <Button onPress={() => navigate('ReportProblem', { order_id: 1 })}>
+        <Button onPress={() => navigate('ReportProblem', { order_id: id })}>
           <Icon name="cancel" size={32} color="#E74040" />
           <ButtonText>Informar Problema</ButtonText>
         </Button>
-        <Button onPress={() => navigate('ShowProblem', { order_id: 1 })}>
+        <Button onPress={() => navigate('ShowProblem', { order_id: id })}>
           <Icon name="error-outline" size={32} color="#E7BA40" />
           <ButtonText>Visualizar Problemas</ButtonText>
         </Button>
-        <Button onPress={() => navigate('ConfirmDelivery', { order_id: 1 })}>
+        <Button onPress={() => navigate('ConfirmDelivery', { order_id: id })}>
           <Icon name="check-circle" size={32} color="#008080" />
           <ButtonText>Confirmar Entrega</ButtonText>
         </Button>

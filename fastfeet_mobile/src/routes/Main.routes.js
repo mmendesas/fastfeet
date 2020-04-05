@@ -19,6 +19,7 @@ export default () => (
         fontSize: 16,
       },
       style: {
+        paddingTop: 5,
         height: 100,
         shadowColor: '#000',
         shadowOffset: {
