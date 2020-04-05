@@ -4,7 +4,7 @@ import { shape, string, date, number, object } from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
-import { format, parseISO } from 'date-fns';
+import dateToString from '~/helpers/dateToString';
 
 import { Container, Header, Title, Details } from './styles';
 
@@ -13,19 +13,15 @@ import TextLabel from '~/components/TextLabel';
 import TextLink from '~/components/TextLink';
 
 export default function OrderCard({ data }) {
-  console.tron.log('ALL', data);
-
   const { navigate } = useNavigation();
   const { id, start_date, end_date, recipient, status } = data;
   const { city } = recipient;
 
   const dateToUse = end_date || start_date;
-  const usedDate = start_date
-    ? format(parseISO(dateToUse), 'dd/MM/yyyy')
-    : '--/--/--';
+  const usedDate = start_date ? dateToString(dateToUse) : '--/--/--';
 
-  function handleDetailsClick(order) {
-    navigate('Details', { order_id: order });
+  function handleDetailsClick() {
+    navigate('Details', { data });
   }
 
   return (
@@ -38,7 +34,7 @@ export default function OrderCard({ data }) {
       <Details>
         <TextLabel label="Data" value={usedDate} />
         <TextLabel label="Cidade" value={city} />
-        <TextLink active onPress={() => handleDetailsClick(id)}>
+        <TextLink active onPress={handleDetailsClick}>
           Ver Detalhes
         </TextLink>
       </Details>

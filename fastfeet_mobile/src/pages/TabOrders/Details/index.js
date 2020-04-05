@@ -1,11 +1,12 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { View } from 'react-native';
-import { shape, number } from 'prop-types';
+import { shape, object } from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
 import Background from '~/components/Background';
+import dateToString from '~/helpers/dateToString';
 
 import {
   Box,
@@ -20,8 +21,11 @@ import {
 } from './styles';
 
 export default function Details({ route }) {
-  const { order_id } = route.params;
+  const { data } = route.params;
   const { navigate } = useNavigation();
+
+  const { status, product, recipient, start_date, end_date } = data;
+  const { street, city, number, state, zipcode } = recipient;
 
   return (
     <Background>
@@ -31,11 +35,11 @@ export default function Details({ route }) {
           <Title>Informações da entrega</Title>
         </Header>
         <Label>DESTINATÁRIO</Label>
-        <TextInfo>Ludwig Beethoven</TextInfo>
+        <TextInfo>{recipient.name}</TextInfo>
         <Label>ENDEREÇO DA ENTREGA</Label>
-        <TextInfo>Rua x, 123, caracas - SP, 05001-100</TextInfo>
+        <TextInfo>{`${street}, ${number}, ${city} - ${state}, ${zipcode}`}</TextInfo>
         <Label>PRODUTO</Label>
-        <TextInfo>Sacola</TextInfo>
+        <TextInfo>{product}</TextInfo>
       </Box>
 
       <Box>
@@ -44,15 +48,15 @@ export default function Details({ route }) {
           <Title>Situação da entrega</Title>
         </Header>
         <Label>STATUS</Label>
-        <TextInfo>Pendente</TextInfo>
+        <TextInfo>{status}</TextInfo>
         <Row>
           <View>
             <Label>DATA DE RETIRADA</Label>
-            <TextInfo>14/01/2020</TextInfo>
+            <TextInfo>{dateToString(start_date)}</TextInfo>
           </View>
           <View>
-            <Label>DATA DE RETIRADA</Label>
-            <TextInfo>14/01/2020</TextInfo>
+            <Label>DATA DE ENTREGA</Label>
+            <TextInfo>{dateToString(end_date)}</TextInfo>
           </View>
         </Row>
       </Box>
@@ -78,7 +82,7 @@ export default function Details({ route }) {
 Details.propTypes = {
   route: shape({
     params: shape({
-      order_id: number.isRequired,
+      data: object,
     }).isRequired,
   }).isRequired,
 };

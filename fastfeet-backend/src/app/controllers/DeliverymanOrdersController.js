@@ -41,7 +41,7 @@ class DeliverymanOrdersController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['name', 'street', 'city', 'zipcode'],
+          attributes: ['name', 'street', 'number', 'state', 'city', 'zipcode'],
         },
         {
           model: User,

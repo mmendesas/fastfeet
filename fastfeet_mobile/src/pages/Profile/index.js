@@ -1,8 +1,9 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector, useDispatch } from 'react-redux';
-import { format, parseISO } from 'date-fns';
 
+import dateToString from '~/helpers/dateToString';
 import { Container, Content, Info, Row } from './styles';
 import { signOut } from '~/store/modules/auth/actions';
 
@@ -13,7 +14,7 @@ import Button from '~/components/Button';
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.user.profile);
-  const usedDate = format(parseISO(profile.created_at), 'dd/MM/yyyy');
+  const usedDate = dateToString(profile?.created_at);
 
   function handleLogout() {
     dispatch(signOut());
@@ -22,13 +23,13 @@ export default function Profile() {
   return (
     <Container>
       <Content>
-        <NameInitials name={profile.name} big />
+        <NameInitials name={profile?.name} big />
         <Info>
           <Row>
-            <TextLabel label="Nome completo" value={profile.name} big />
+            <TextLabel label="Nome completo" value={profile?.name} big />
           </Row>
           <Row>
-            <TextLabel label="Email" value={profile.email} big />
+            <TextLabel label="Email" value={profile?.email} big />
           </Row>
           <Row>
             <TextLabel label="Data de cadastro" value={usedDate} big />

@@ -65,7 +65,7 @@ export default function Orders() {
       <Container>
         <Header>
           {profile?.avatar ? (
-            <Avatar source={{ uri: profile.avatar.url }} />
+            <Avatar source={{ uri: profile?.avatar.url }} />
           ) : (
             <NameInitials name={profile?.name} />
           )}
