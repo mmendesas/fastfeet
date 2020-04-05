@@ -6,12 +6,6 @@ import AuthedRoutes from '~/routes/Main.routes';
 
 const Stack = createStackNavigator();
 
-const screens = () => (
-  <Stack.Navigator headerMode="none">
-    <Stack.Screen name="SignIn" component={SignIn} />
-  </Stack.Navigator>
-);
-
 export default (signedIn = false) => {
   return (
     <Stack.Navigator headerMode="none">

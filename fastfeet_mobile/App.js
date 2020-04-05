@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      {/* <StatusBar barStyle="dark-content" /> */}
       <SafeAreaView>
         <View style={styles.body}>
           <View style={styles.sectionContainer}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, StatusBar } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -61,7 +61,6 @@ export default function Orders() {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
       <Container>
         <Header>
           {profile?.avatar ? (

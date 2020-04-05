@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
   background-color: #fff;
 `;
@@ -12,5 +12,5 @@ export const Strip = styled.View`
 
 export const Content = styled.View`
   margin: 0 20px;
-  margin-top: -100px;
+  margin-top: -60px;
 `;

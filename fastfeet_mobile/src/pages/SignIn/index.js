@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Image } from 'react-native';
+import { Image, StatusBar } from 'react-native';
 import { Form } from '@unform/mobile';
 
 import logo from '~/assets/fastfeet-logo.png';
@@ -19,26 +19,29 @@ export default function SignIn() {
   }
 
   return (
-    <Container>
-      <Image source={logo} />
-      <Content>
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <FormInput
-            name="user_id"
-            keyboardType="number-pad"
-            placeholder="Informe seu ID de cadastro"
-            returnKeyType="send"
-            onSubmitEditing={handleSubmit}
-          />
+    <>
+      <StatusBar barStyle="light-content" />
+      <Container>
+        <Image source={logo} />
+        <Content>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <FormInput
+              name="user_id"
+              keyboardType="number-pad"
+              placeholder="Informe seu ID de cadastro"
+              returnKeyType="send"
+              onSubmitEditing={handleSubmit}
+            />
 
-          <SubmitButton
-            onPress={() => formRef.current.submitForm()}
-            loading={loading}
-          >
-            Entrar no sistema
-          </SubmitButton>
-        </Form>
-      </Content>
-    </Container>
+            <SubmitButton
+              onPress={() => formRef.current.submitForm()}
+              loading={loading}
+            >
+              Entrar no sistema
+            </SubmitButton>
+          </Form>
+        </Content>
+      </Container>
+    </>
   );
 }

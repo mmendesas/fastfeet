@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable camelcase */
 import React, { useRef, useState } from 'react';
 import { RNCamera } from 'react-native-camera';
@@ -35,7 +36,7 @@ export default function ReportProblem() {
 
   async function handleSubmit() {
     const { order_id } = route.params;
-    const { id, url } = await saveFile();
+    const { id } = await saveFile();
 
     try {
       await api.put(`deliveryman/${auth.id}/deliveries/${order_id}`, {
