@@ -57,5 +57,7 @@
   <array>
     <string>MaterialIcons.ttf</string>
   </array>
+  <key>NSCameraUsageDescription</key>
+  <string>Este aplicativo precisa acessar a camera</string>
 </dict>
 </plist>
