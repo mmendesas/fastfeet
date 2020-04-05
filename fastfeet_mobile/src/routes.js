@@ -8,6 +8,9 @@ import SignIn from './pages/SignIn';
 import Orders from './pages/Orders';
 import Profile from './pages/Profile';
 import Details from './pages/TabOrders/Details';
+import ReportProblem from './pages/TabOrders/ReportProblem';
+import ShowProblem from './pages/TabOrders/ShowProblem';
+import ConfirmDelivery from './pages/TabOrders/ConfirmDelivery';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -36,6 +39,21 @@ const orderFlowScreens = () => (
       options={{ title: 'Detalhes da encomenda' }}
       name="Details"
       component={Details}
+    />
+    <Stack.Screen
+      options={{ title: 'Informar problema' }}
+      name="ReportProblem"
+      component={ReportProblem}
+    />
+    <Stack.Screen
+      options={{ title: 'Visualizar Problemas' }}
+      name="ShowProblem"
+      component={ShowProblem}
+    />
+    <Stack.Screen
+      options={{ title: 'Confirmar entrega' }}
+      name="ConfirmDelivery"
+      component={ConfirmDelivery}
     />
   </Stack.Navigator>
 );

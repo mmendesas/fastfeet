@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { shape, number } from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
 import Background from '~/components/Background';
 
@@ -20,6 +21,7 @@ import {
 
 export default function Details({ route }) {
   const { order_id } = route.params;
+  const { navigate } = useNavigation();
 
   return (
     <Background>
@@ -56,15 +58,15 @@ export default function Details({ route }) {
       </Box>
 
       <Options>
-        <Button onPress={() => {}}>
+        <Button onPress={() => navigate('ReportProblem', { order_id: 1 })}>
           <Icon name="cancel" size={32} color="#E74040" />
           <ButtonText>Informar Problema</ButtonText>
         </Button>
-        <Button onPress={() => {}}>
+        <Button onPress={() => navigate('ShowProblem', { order_id: 1 })}>
           <Icon name="error-outline" size={32} color="#E7BA40" />
           <ButtonText>Visualizar Problemas</ButtonText>
         </Button>
-        <Button onPress={() => {}}>
+        <Button onPress={() => navigate('ConfirmDelivery', { order_id: 1 })}>
           <Icon name="check-circle" size={32} color="#008080" />
           <ButtonText>Confirmar Entrega</ButtonText>
         </Button>

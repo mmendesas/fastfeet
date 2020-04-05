@@ -13,6 +13,8 @@ import TextLabel from '~/components/TextLabel';
 import TextLink from '~/components/TextLink';
 
 export default function OrderCard({ data }) {
+  console.tron.log('ALL', data);
+
   const { navigate } = useNavigation();
   const { id, start_date, end_date, recipient, status } = data;
   const { city } = recipient;
