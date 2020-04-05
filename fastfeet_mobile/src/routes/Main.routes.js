@@ -33,7 +33,7 @@ export default () => (
     }}
   >
     <Tab.Screen
-      name="orders"
+      name="Main"
       component={TabOrderRoutes}
       options={{
         title: 'Entregas',

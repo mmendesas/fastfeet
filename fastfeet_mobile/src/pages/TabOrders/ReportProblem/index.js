@@ -2,8 +2,7 @@
 import React, { useRef } from 'react';
 import { Alert } from 'react-native';
 import { Form } from '@unform/mobile';
-
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import Background from '~/components/Background';
 import Button from '~/components/Button';
@@ -13,13 +12,16 @@ import api from '~/services/api';
 
 export default function ReportProblem() {
   const route = useRoute();
+  const { navigate } = useNavigation();
   const formRef = useRef();
+
   const { order_id } = route.params;
 
   async function handleSubmit(data) {
     try {
       await api.post(`delivery/${order_id}/problems`, data);
       Alert.alert('Problema enviado com sucesso');
+      navigate('Order');
     } catch (error) {
       Alert.alert('Erro ao enviar o problema');
     }

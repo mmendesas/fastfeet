@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  padding: 0 15px;
   height: 46px;
   background: #fff;
   border-radius: 4px;
@@ -15,7 +14,7 @@ export const TInput = styled.TextInput.attrs({
 })`
   flex: 1;
   font-size: 16px;
-  padding: 20px;
+  padding: 0 20px;
   color: #333;
   height: 100%;
 `;

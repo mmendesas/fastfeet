@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
 import dateToString from '~/helpers/dateToString';
+import addZero from '~/helpers/addZero';
 
 import { Container, Header, Title, Details } from './styles';
 
@@ -28,7 +29,7 @@ export default function OrderCard({ data }) {
     <Container>
       <Header>
         <Icon name="local-shipping" size={32} color="#008080" />
-        <Title> Encomenda {`${String(id).padStart(2, '0')}`}</Title>
+        <Title> Encomenda {addZero(id)}</Title>
       </Header>
       <Timeline status={status} />
       <Details>
