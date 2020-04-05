@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -60,61 +60,64 @@ export default function Orders() {
   }
 
   return (
-    <Container>
-      <Header>
-        {profile.avatar ? (
-          <Avatar source={{ uri: profile.avatar.url }} />
+    <>
+      <StatusBar barStyle="dark-content" />
+      <Container>
+        <Header>
+          {profile.avatar ? (
+            <Avatar source={{ uri: profile.avatar.url }} />
+          ) : (
+            <NameInitials name={profile.name} />
+          )}
+          <UserInfo>
+            <Text>Bem vindo(a) de volta,</Text>
+            <Username>{profile.name}</Username>
+          </UserInfo>
+
+          <TouchableOpacity onPress={handleLogout}>
+            <Icon name="exit-to-app" size={32} color="#f00" />
+          </TouchableOpacity>
+        </Header>
+
+        <InfoView>
+          <Title>Entregas</Title>
+          <Tab>
+            <TextLink
+              active={filterType === 'pendente'}
+              border
+              onPress={() => {
+                filterOrders('pendente');
+                setFilterType('pendente');
+              }}
+            >
+              Pendentes
+            </TextLink>
+            <TextLink
+              active={filterType === 'entregues'}
+              border
+              onPress={() => {
+                filterOrders('');
+                setFilterType('entregues');
+              }}
+            >
+              Entregues
+            </TextLink>
+          </Tab>
+        </InfoView>
+
+        {!filteredOrders.length ? (
+          <EmptyMessage>
+            <Icon name="local-shipping" size={50} color="#ccc" />
+            <EmptyText>Não há encomendas...</EmptyText>
+          </EmptyMessage>
         ) : (
-          <NameInitials name={profile.name} />
+          <List
+            data={filteredOrders}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({ item }) => <OrderCard data={item} />}
+          />
         )}
-        <UserInfo>
-          <Text>Bem vindo(a) de volta,</Text>
-          <Username>{profile.name}</Username>
-        </UserInfo>
-
-        <TouchableOpacity onPress={handleLogout}>
-          <Icon name="exit-to-app" size={32} color="#f00" />
-        </TouchableOpacity>
-      </Header>
-
-      <InfoView>
-        <Title>Entregas</Title>
-        <Tab>
-          <TextLink
-            active={filterType === 'pendente'}
-            border
-            onPress={() => {
-              filterOrders('pendente');
-              setFilterType('pendente');
-            }}
-          >
-            Pendentes
-          </TextLink>
-          <TextLink
-            active={filterType === 'entregues'}
-            border
-            onPress={() => {
-              filterOrders('');
-              setFilterType('entregues');
-            }}
-          >
-            Entregues
-          </TextLink>
-        </Tab>
-      </InfoView>
-
-      {!filteredOrders.length ? (
-        <EmptyMessage>
-          <Icon name="local-shipping" size={50} color="#ccc" />
-          <EmptyText>Não há encomendas...</EmptyText>
-        </EmptyMessage>
-      ) : (
-        <List
-          data={filteredOrders}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <OrderCard data={item} />}
-        />
-      )}
-    </Container>
+      </Container>
+    </>
   );
 }

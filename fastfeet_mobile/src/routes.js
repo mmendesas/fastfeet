@@ -19,9 +19,24 @@ const screens = () => (
 );
 
 const orderFlowScreens = () => (
-  <Stack.Navigator headerMode="none">
+  <Stack.Navigator
+    screenOptions={{
+      headerBackTitleVisible: false,
+      headerTransparent: true,
+      headerTintColor: '#fff',
+      headerTitleAlign: 'center',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}
+    initialRouteName="Order"
+  >
     <Stack.Screen name="Order" component={Orders} />
-    <Stack.Screen name="Details" component={Details} />
+    <Stack.Screen
+      options={{ title: 'Detalhes da encomenda' }}
+      name="Details"
+      component={Details}
+    />
   </Stack.Navigator>
 );
 
@@ -51,13 +66,13 @@ const authedScreens = () => (
   >
     <Tab.Screen
       name="orders"
+      component={orderFlowScreens}
       options={{
         title: 'Entregas',
         tabBarIcon: ({ color }) => (
           <Icon name="dehaze" size={40} color={color} />
         ),
       }}
-      component={orderFlowScreens}
     />
 
     <Tab.Screen
