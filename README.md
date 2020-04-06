@@ -20,11 +20,15 @@
 
 This project was developed following the challenges of [RocketSeat Bootcamp](https://rocketseat.com.br/).
 
-`Challenge` - Develop an application that a user could control deliveries, a mobile app with detailed information about deliveries, where to deliver them and actions like print signature, check delivery status etc. In other hand the admin could make the management of all orders from all deliveryman.
+`Challenge` - Develop an application for a carrier to manage deliveries.
+
+- `server`: A structure to control the entire process by saving the informations, with access control to specific actions.
+- `web`: A web application for the carrier's administrator to register new deliveries and control all deliveries
+- `mobile`: A mobile application for the delivery man to manage the deliveries to be made, checking/update order status and more.
 
 ## Prerequisites
 
-The detailed information about each part could be found in their own `readme`
+The detailed information about each part could be found in their own `readme` file
 
 ## FastFeet Structure
 
