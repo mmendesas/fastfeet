@@ -29,7 +29,7 @@ export const OptionsList = styled.div`
   z-index: 2;
   background-color: #fff;
   position: absolute;
-  width: 120px;
+  min-width: 120px;
   left: calc(50% - 60px);
   top: calc(100%);
 
@@ -62,7 +62,8 @@ export const Option = styled.div`
 
   cursor: pointer;
   padding: 5px;
-  font-size: 14px;
+  font-size: 12px;
+  color: #999;
   display: flex;
   align-items: center;
   align-self: flex-start;

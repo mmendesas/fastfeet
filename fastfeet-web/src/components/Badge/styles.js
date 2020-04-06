@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { lighten } from 'polished';
 
 export const Container = styled.div`
-  width: 100px;
-  background-color: ${props => lighten(0.4, props.color || '#F00')};
-  color: ${props => props.color || '#f00'};
+  width: 125px;
+  background-color: ${props => props.bgColor || '#FAB0B0'};
+  color: ${props => props.color || '#DE3B3B'};
 
   border-radius: 30px;
   padding: 5px 10px;
@@ -12,12 +11,15 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
 `;
 
 export const Dot = styled.span`
-  height: 10px;
-  width: 10px;
+  height: 12px;
+  width: 12px;
   margin-right: 5px;
   border-radius: 50%;
-  background-color: ${props => props.color || '#f00'};
+  background-color: ${props => props.color || '#DE3B3B'};
 `;

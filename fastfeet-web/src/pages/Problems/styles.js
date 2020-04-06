@@ -7,6 +7,7 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   margin-bottom: 20px;
+  font-size: 24px;
 `;
 
 export const Content = styled.div`

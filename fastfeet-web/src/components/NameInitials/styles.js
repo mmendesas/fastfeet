@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { lighten } from 'polished';
 
 export const Container = styled.div`
   display: flex;
@@ -7,14 +6,15 @@ export const Container = styled.div`
 `;
 
 export const Initials = styled.span`
-  width: 30px;
-  height: 30px;
-  background-color: ${props => lighten(0.4, props.color || '#F00')};
+  width: 36px;
+  height: 36px;
+  background-color: ${props => props.bgColor || '#f00'};
   color: ${props => props.color || '#f00'};
 
   border-radius: 50%;
   padding: 5px;
-  font-size: 12px;
+  font-size: 16px;
+  text-transform: uppercase;
 
   display: flex;
   align-items: center;

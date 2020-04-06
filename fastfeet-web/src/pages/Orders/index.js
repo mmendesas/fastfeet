@@ -98,7 +98,7 @@ export default function Orders() {
             <Column>{item.recipient.city}</Column>
             <Column>{item.recipient.state}</Column>
             <Column>
-              <Badge type="retirada">Cancelado</Badge>
+              <Badge type={item.status} />
             </Column>
             <Column>
               <>

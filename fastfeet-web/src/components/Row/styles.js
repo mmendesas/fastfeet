@@ -5,7 +5,7 @@ export const Container = styled.li`
   align-items: center;
 
   margin: 20px 0;
-  height: 40px;
+  height: 57px;
   background: ${({ header }) => (header ? 'transparent' : '#fff')};
   border-radius: 4px;
   border: 0;

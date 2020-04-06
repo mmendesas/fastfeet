@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   height: 100%;
   width: 100%;
+  overflow: auto;
 
-  background: #ecf1f8;
+  background: #f5f5f5;
   display: flex;
   flex-direction: column;
   align-items: center;

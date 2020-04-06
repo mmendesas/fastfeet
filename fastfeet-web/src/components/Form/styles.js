@@ -32,10 +32,11 @@ export const Search = styled.div`
   background: #fff;
   border-radius: 4px;
   width: 250px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   height: 30px;
   padding-left: 10px;
   font-size: 14px;
+  height: 36px;
 
   display: flex;
   align-items: center;
