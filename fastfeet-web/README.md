@@ -22,7 +22,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 As well as an `admin-like` app, this app offers some **CRUD** interactions for these screens below
 
-- `login` -
+- Here you can find some screenshots of some pages
+
+<div style="display:flex; flex-wrap: wrap" width="100%">
+ <img alt="preview" src="assets/fastfeet_01.png" width="500px" style="margin: 15px" />
+ <img alt="preview" src="assets/fastfeet_02.png" width="500px" style="margin: 15px"  />
+ <img alt="preview" src="assets/fastfeet_03.png" width="500px" style="margin: 15px" />
+ <img alt="preview" src="assets/fastfeet_04.png" width="500px" style="margin: 15px"  />
+</div>
 
 ## Built With
 
