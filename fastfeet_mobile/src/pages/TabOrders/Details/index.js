@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, Alert } from 'react-native';
 import { shape, object } from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import Background from '~/components/Background';
 import dateToString from '~/helpers/dateToString';
@@ -20,12 +21,27 @@ import {
   ButtonText,
 } from './styles';
 
+import api from '~/services/api';
+
 export default function Details({ route }) {
   const { data } = route.params;
   const { navigate } = useNavigation();
 
+  const deliveryman_id = useSelector((state) => state.auth.id);
+
   const { id, status, product, recipient, start_date, end_date } = data;
   const { street, city, number, state, zipcode } = recipient;
+
+  async function handleStartDelivery() {
+    try {
+      await api.put(`/deliveryman/${deliveryman_id}/deliveries/${id}`, {
+        start_date: new Date(),
+      });
+      navigate('Main');
+    } catch (err) {
+      Alert.alert('Erro ao iniciar entrega', 'Horário de retirada inválido');
+    }
+  }
 
   return (
     <>
@@ -72,10 +88,20 @@ export default function Details({ route }) {
             <Icon name="error-outline" size={32} color="#E7BA40" />
             <ButtonText>Visualizar Problemas</ButtonText>
           </Button>
-          <Button onPress={() => navigate('ConfirmDelivery', { order_id: id })}>
-            <Icon name="check-circle" size={32} color="#0aa" />
-            <ButtonText>Confirmar Entrega</ButtonText>
-          </Button>
+
+          {start_date ? (
+            <Button
+              onPress={() => navigate('ConfirmDelivery', { order_id: id })}
+            >
+              <Icon name="check-circle" size={32} color="#0aa" />
+              <ButtonText>Confirmar Entrega</ButtonText>
+            </Button>
+          ) : (
+            <Button onPress={handleStartDelivery}>
+              <Icon name="local-shipping" size={32} color="#0aa" />
+              <ButtonText>Iniciar Entrega</ButtonText>
+            </Button>
+          )}
         </Options>
       </Background>
     </>
