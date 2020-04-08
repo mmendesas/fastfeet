@@ -36,15 +36,17 @@ export default function Orders() {
 
   function filterOrders(status) {
     let newOrders = [];
-    if (status === 'pendente') {
-      newOrders = orders.filter((item) =>
-        ['pendente', 'retirada'].includes(item.status)
-      );
+    if (status === 'entregues') {
+      newOrders = orders.filter((item) => item.status === 'entregue');
     } else {
-      newOrders = orders.filter((item) => item.status === status);
+      newOrders = orders.filter((item) => item.status !== 'entregue');
     }
     setFilteredOrders(newOrders);
   }
+
+  useEffect(() => {
+    filterOrders(filterType);
+  }, [filterType]);
 
   useEffect(() => {
     async function loadData() {
@@ -85,7 +87,6 @@ export default function Orders() {
               active={filterType === 'pendente'}
               border
               onPress={() => {
-                filterOrders('pendente');
                 setFilterType('pendente');
               }}
             >
@@ -95,7 +96,6 @@ export default function Orders() {
               active={filterType === 'entregues'}
               border
               onPress={() => {
-                filterOrders('');
                 setFilterType('entregues');
               }}
             >

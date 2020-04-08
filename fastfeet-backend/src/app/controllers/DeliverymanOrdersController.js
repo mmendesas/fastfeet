@@ -26,8 +26,8 @@ class DeliverymanOrdersController {
       where: {
         deliveryman_id: req.params.id,
         canceled_at: null,
-        end_date: null,
       },
+      order: ['id'],
       attributes: [
         'id',
         'product',
