@@ -80,8 +80,15 @@ export default function Details({ route }) {
         </Box>
 
         <Options>
-          <Button onPress={() => navigate('ReportProblem', { order_id: id })}>
-            <Icon name="cancel" size={32} color="#E74040" />
+          <Button
+            onPress={() => navigate('ReportProblem', { order_id: id })}
+            disabled={!!end_date}
+          >
+            <Icon
+              name="cancel"
+              size={32}
+              color={end_date ? '#ccc' : '#E74040'}
+            />
             <ButtonText>Informar Problema</ButtonText>
           </Button>
           <Button onPress={() => navigate('ShowProblem', { order_id: id })}>
@@ -92,9 +99,16 @@ export default function Details({ route }) {
           {start_date ? (
             <Button
               onPress={() => navigate('ConfirmDelivery', { order_id: id })}
+              disabled={!!end_date}
             >
-              <Icon name="check-circle" size={32} color="#0aa" />
-              <ButtonText>Confirmar Entrega</ButtonText>
+              <Icon
+                name={end_date ? 'location-on' : 'check-circle'}
+                size={32}
+                color="#0aa"
+              />
+              <ButtonText>
+                {end_date ? 'Entrega realizada' : 'Confirmar Entrega'}
+              </ButtonText>
             </Button>
           ) : (
             <Button onPress={handleStartDelivery}>
