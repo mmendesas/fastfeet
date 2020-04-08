@@ -9,8 +9,24 @@ import CancelOrderMail from '../jobs/CancelOrderMail';
 
 class DeliveryProblemController {
   async index(req, res) {
-    const problems = await DeliveryProblem.findAll();
-    return res.json(problems);
+    const problems = await DeliveryProblem.findAll({
+      attributes: ['id', 'description', 'delivery_id'],
+      order: ['id'],
+      include: [
+        {
+          model: Order,
+          as: 'delivery',
+          attributes: ['canceled_at'],
+        },
+      ],
+    });
+
+    // see only active problems
+    const noCanceled = problems.filter(
+      item => item.delivery && !item.delivery.canceled_at
+    );
+
+    return res.json(noCanceled);
   }
 
   async indexById(req, res) {

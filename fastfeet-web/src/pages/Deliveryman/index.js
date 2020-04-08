@@ -20,8 +20,9 @@ export default function Deliveryman() {
   const dispatch = useDispatch();
   const [deliveryman, setDeliveryman] = useState([]);
 
-  async function loadData() {
-    const response = await api.get('deliveryman');
+  async function loadData(query) {
+    const options = query ? { params: { q: query } } : null;
+    const response = await api.get('deliveryman', options);
     setDeliveryman(response.data);
   }
 
@@ -43,19 +44,26 @@ export default function Deliveryman() {
     loadData();
   }
 
+  function handleSearch(data) {
+    loadData(data);
+  }
+
   return (
     <Container>
       <Title>Gerenciando Entregadores</Title>
       <Form
         placeholder="Buscar por entregadores"
+        onSearch={handleSearch}
         onClick={() => {
           history.push('/deliveryman/register');
         }}
       />
 
+      {!deliveryman.length && <p>Nenhum item encontrado.</p>}
+
       <ul>
         <Row header>
-          {['ID', 'Foto', 'Nome', 'Email', 'Açoes'].map(item => (
+          {['ID', 'Foto', 'Nome', 'Email', 'Ações'].map(item => (
             <Column key={item} header>
               {item}
             </Column>

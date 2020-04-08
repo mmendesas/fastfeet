@@ -22,7 +22,7 @@ export default function Login() {
 
       const schema = Yup.object().shape({
         email: Yup.string()
-          .email()
+          .email('Deve ser um email válido')
           .required('O email é obrigatório'),
         password: Yup.string().required('A senha é obrigatória')
       });

@@ -41,8 +41,8 @@ export default function DeliverymanRegister({ match }) {
       const schema = Yup.object().shape({
         email: Yup.string()
           .email()
-          .required(),
-        name: Yup.string().required()
+          .required('Email é um campo obrigatório'),
+        name: Yup.string().required('Nome é um campo obrigatório')
       });
 
       await schema.validate(data, { abortEarly: false });

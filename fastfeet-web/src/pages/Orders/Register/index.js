@@ -11,6 +11,7 @@ import Input from '../../../components/Input';
 import Select from '../../../components/Select';
 
 import api from '../../../services/api';
+import history from '../../../services/history';
 
 import { Container, Content, Title, FormContent } from './styles';
 
@@ -35,9 +36,9 @@ export default function DeliverymanRegister({ match }) {
     try {
       formRef.current.setErrors({});
       const schema = Yup.object().shape({
-        deliveryman: Yup.string().required(),
-        recipient: Yup.string().required(),
-        product: Yup.string().required()
+        deliveryman: Yup.string().required('Entregador é um campo obrigatório'),
+        recipient: Yup.string().required('Destinatário é um campo obrigatório'),
+        product: Yup.string().required('Produto é um campo obrigatório')
       });
 
       await schema.validate(data, { abortEarly: false });
@@ -55,6 +56,7 @@ export default function DeliverymanRegister({ match }) {
       }
       const msg = id ? 'editada' : 'criada';
       toast.success(`Encomenda ${msg} com sucesso!`);
+      history.goBack();
     } catch (err) {
       const validationErrors = {};
       if (err instanceof Yup.ValidationError) {
@@ -103,15 +105,14 @@ export default function DeliverymanRegister({ match }) {
         <Form id="myform" ref={formRef} onSubmit={handleSubmit}>
           <FormContent>
             <Select
-              name="deliveryman"
-              label="Destinatários"
-              loadOptions={loadDeliveryman}
-            />
-
-            <Select
               name="recipient"
-              label="Entregador"
+              label="Destinatários"
               loadOptions={loadRecipients}
+            />
+            <Select
+              name="deliveryman"
+              label="Entregador"
+              loadOptions={loadDeliveryman}
             />
           </FormContent>
 

@@ -76,12 +76,13 @@ export default function Orders() {
         <Row header>
           {[
             'ID',
-            'Destinatario',
+            'Produto',
+            'Destinatário',
             'Entregador',
             'Cidade',
             'Estado',
             'Status',
-            'Açoes'
+            'Ações'
           ].map(item => (
             <Column key={item} header>
               {item}
@@ -91,6 +92,7 @@ export default function Orders() {
         {orders.map(item => (
           <Row key={item.id}>
             <Column>{`#${String(item.id).padStart(2, '0')}`}</Column>
+            <Column>{item.product}</Column>
             <Column>{item.recipient.name}</Column>
             <Column>
               <NameInitials name={item.deliveryman.name} />

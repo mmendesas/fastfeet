@@ -16,12 +16,12 @@ You need to have docker installed on your machine to up the DBs
 In the project directory `../fastfeet/fastfeet-backend`, you can run:
 
 - `yarn`: Intalling dependencies
-- `yarn start` : Start in development mode
 - `docker start database`: start the database server
 - `docker start redisfastfeet`: start the redis server instance
 - `yarn sequelize db:migrate`: define the db structure
 - `yarn sequelize db:seed:all`: register an admin user
 - `yarn dev`: Start in development mode
+- `yarn queue`: Start the queue processing to send emails
 
 If you can, import the [insomnia file]('/docs/Insomnia_Fastfeet.json') inside insomnia to test all examples
 
@@ -31,7 +31,7 @@ If you can, import the [insomnia file]('/docs/Insomnia_Fastfeet.json') inside in
 
 As well as an `admin-like` app, this app offers some **CRUD** interactions for these entities below
 
-- `users` - Here you can use CRUD to organize your users, an user could be `admin` or `deliveryman``
+- `users` - Here you can use CRUD to organize your users, an user could be `admin` or `deliveryman`
 - `files` - Here you can control files, usually photos of users or documents (.png or .jpeg)
 - `recipients` - Detailed receiver information (name, address)
 - `delivery_problems` - Used to store info about some problem during the delivery process

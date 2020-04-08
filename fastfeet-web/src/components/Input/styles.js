@@ -20,6 +20,7 @@ export const Container = styled.div`
 `;
 
 export const ErrorMsg = styled.span`
+  margin-top: 5px;
   font-size: 12px;
   color: #f00;
 

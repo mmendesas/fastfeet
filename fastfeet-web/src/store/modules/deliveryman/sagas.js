@@ -3,6 +3,7 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import api from '../../../services/api';
+import history from '../../../services/history';
 
 import {
   createDeliverymanSuccess,
@@ -18,6 +19,7 @@ export function* createRequest({ payload }) {
 
     toast.success('Entregador cadastrado com sucesso');
     yield put(createDeliverymanSuccess(response.data));
+    history.push('/deliveryman');
   } catch (err) {
     toast.error('Erro ao cadastrar entregador');
     yield put(createDeliverymanFailure());
